@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">UniversalYogaAppAdmin</string>
+    <string name = "dayOfTheWeek">Day of the week</string>
+    <string name = "timeofCourse">Time of course</string>
+    <string name = "capacity">Class Capacity</string>
+    <string name = "duration">Duration</string>
+    <string name = "price">Class Price</string>
+    <string name = "typeOfClass">Type of class</string>
+    <string name = "descripton">Class description</string>
+
 </resources>
