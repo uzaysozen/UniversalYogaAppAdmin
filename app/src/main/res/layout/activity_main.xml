@@ -16,60 +16,95 @@
         tools:context=".MainActivity">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/Dayoftheweek"
             android:layout_width="114dp"
             android:layout_height="25dp"
             android:text="@string/dayOfTheWeek"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="80dp" />
+            app:layout_constraintBottom_toTopOf="@+id/timeofcourse"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.151"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.856" />
 
         <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/timeofcourse"
+            android:layout_width="119dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/timeofCourse"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="116dp" />
+            app:layout_constraintBottom_toTopOf="@+id/classcapacity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.154"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/classcapacity"
+            android:layout_width="102dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="28dp"
             android:text="@string/capacity"
-            tools:layout_editor_absoluteX="14dp"
-            tools:layout_editor_absoluteY="149dp" />
+            app:layout_constraintBottom_toTopOf="@+id/duration"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.145"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/duration"
+            android:layout_width="105dp"
+            android:layout_height="21dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/duration"
-            tools:layout_editor_absoluteX="19dp"
-            tools:layout_editor_absoluteY="191dp" />
+            app:layout_constraintBottom_toTopOf="@+id/Classprice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.143"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/Classprice"
+            android:layout_width="111dp"
+            android:layout_height="24dp"
+            android:layout_marginBottom="40dp"
             android:text="@string/price"
-            tools:layout_editor_absoluteX="15dp"
-            tools:layout_editor_absoluteY="235dp" />
+            app:layout_constraintBottom_toTopOf="@+id/typeofclass"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.143"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/typeofclass"
+            android:layout_width="112dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="24dp"
             android:text="@string/typeOfClass"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="288dp" />
+            app:layout_constraintBottom_toTopOf="@+id/classdescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.143"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/classdescription"
+            android:layout_width="112dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="320dp"
             android:text="@string/descripton"
-            tools:layout_editor_absoluteX="13dp"
-            tools:layout_editor_absoluteY="341dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.147"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00BCD4"
+            app:layout_constraintBottom_toTopOf="@+id/Dayoftheweek"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:title="Universal Yoga Admin App"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:titleTextColor="#FFFFFF"
+            tools:layout_editor_absoluteX="0dp"></androidx.appcompat.widget.Toolbar>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,14 +114,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#00BCD4"
-            app:title="Universal Yoga Admin App"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-            app:titleTextColor="#FFFFFF"></androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
 
