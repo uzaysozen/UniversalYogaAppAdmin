@@ -7,106 +7,205 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_anchor="@+id/constraintLayout"
-        app:layout_anchorGravity="center"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/Dayoftheweek"
-            android:layout_width="114dp"
-            android:layout_height="25dp"
-            android:text="@string/dayOfTheWeek"
-            app:layout_constraintBottom_toTopOf="@+id/timeofcourse"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.151"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.856" />
-
-        <TextView
-            android:id="@+id/timeofcourse"
-            android:layout_width="119dp"
-            android:layout_height="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/timeofCourse"
-            app:layout_constraintBottom_toTopOf="@+id/classcapacity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.154"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/classcapacity"
-            android:layout_width="102dp"
-            android:layout_height="20dp"
-            android:layout_marginBottom="28dp"
-            android:text="@string/capacity"
-            app:layout_constraintBottom_toTopOf="@+id/duration"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.145"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/duration"
-            android:layout_width="105dp"
-            android:layout_height="21dp"
-            android:layout_marginBottom="32dp"
-            android:text="@string/duration"
-            app:layout_constraintBottom_toTopOf="@+id/Classprice"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.143"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/Classprice"
-            android:layout_width="111dp"
-            android:layout_height="24dp"
-            android:layout_marginBottom="40dp"
-            android:text="@string/price"
-            app:layout_constraintBottom_toTopOf="@+id/typeofclass"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.143"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/typeofclass"
-            android:layout_width="112dp"
-            android:layout_height="30dp"
-            android:layout_marginBottom="24dp"
-            android:text="@string/typeOfClass"
-            app:layout_constraintBottom_toTopOf="@+id/classdescription"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.143"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/classdescription"
-            android:layout_width="112dp"
-            android:layout_height="28dp"
-            android:layout_marginBottom="320dp"
-            android:text="@string/descripton"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.147"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#00BCD4"
-            app:layout_constraintBottom_toTopOf="@+id/Dayoftheweek"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:title="Universal Yoga Admin App"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-            app:titleTextColor="#FFFFFF"
-            tools:layout_editor_absoluteX="0dp"></androidx.appcompat.widget.Toolbar>
+            android:layout_height="wrap_content"
+            tools:context=".MainActivity">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/Dayoftheweek"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:text="@string/dayOfTheWeek"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner2"
+                app:layout_constraintEnd_toStartOf="@+id/spinner2"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/spinner2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/timeofcourse"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:text="@string/timeofCourse"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner3"
+                app:layout_constraintEnd_toStartOf="@+id/spinner3"
+                app:layout_constraintHorizontal_bias="0.505"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/spinner3"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/classcapacity"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:text="@string/capacity"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextNumber"
+                app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
+                app:layout_constraintHorizontal_bias="0.527"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/editTextNumber"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/Classprice"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:text="@string/price"
+                app:layout_constraintBottom_toBottomOf="@+id/editTextNumber2"
+                app:layout_constraintEnd_toStartOf="@+id/editTextNumber2"
+                app:layout_constraintHorizontal_bias="0.527"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/editTextNumber2"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="#00BCD4"
+                app:layout_constraintBottom_toTopOf="@+id/Dayoftheweek"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:title="Universal Yoga Admin App"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+                app:titleTextColor="#FFFFFF"
+                tools:layout_editor_absoluteX="0dp"></androidx.appcompat.widget.Toolbar>
+
+            <Spinner
+                android:id="@+id/spinner2"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="73dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="110dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="70dp"
+                android:layout_marginEnd="80dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <EditText
+                android:id="@+id/editTextNumber"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="120dp"
+                android:layout_marginEnd="80dp"
+                android:ems="10"
+                android:hint="ex. 20"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <EditText
+                android:id="@+id/editTextNumber2"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="180dp"
+                android:layout_marginEnd="80dp"
+                android:ems="10"
+                android:hint="ex. £10"
+                android:inputType="number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="240dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/guideline">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Aerial" />
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Floor" />
+
+                <RadioButton
+                    android:id="@+id/radioButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Family" />
+
+                <RadioButton
+                    android:id="@+id/radioButton3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Meditation" />
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/editTextTextMultiLine"
+                android:layout_width="295dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="300dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="412dp"
+                android:text="Confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.467"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="484dp"
+                android:text="Create Booking"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.457"
+                app:layout_constraintStart_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
