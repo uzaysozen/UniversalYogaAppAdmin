@@ -18,7 +18,7 @@ import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Admin_Database dbHelper;
+    private DatabaseHelper dbHelper;
     private Spinner spinnerDayOfWeek;
     private EditText editTextCapacity;
     private RadioGroup radioGroupClassType1;
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dbHelper = new Admin_Database(this);
+        dbHelper = new DatabaseHelper(this);
 
         spinnerDayOfWeek = findViewById(R.id.Dayoftheweek);
         editTextCapacity = findViewById(R.id.classcapacity);
