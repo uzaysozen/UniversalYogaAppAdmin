@@ -1,13 +1,13 @@
 <resources>
 
     <string name="app_name">UniversalYogaAppAdmin</string>
-    <string name = "dayOfTheWeek">Day of the week *</string>
-    <string name = "timeOfCourse">Time of course *</string>
-    <string name = "capacity">Class Capacity *</string>
-    <string name = "duration">Duration *</string>
-    <string name = "price">Class Price *</string>
-    <string name = "typeOfClass">Type of class *</string>
-    <string name = "description">Class description</string>
+    <string name="dayOfTheWeek">Day of the week *</string>
+    <string name="timeOfCourse">Time of course *</string>
+    <string name="capacity">Class Capacity *</string>
+    <string name="duration">Duration *</string>
+    <string name="price">Class Price *</string>
+    <string name="typeOfClass">Type of class *</string>
+    <string name="description">Class description</string>
     <string name="exercise1">Flow Yoga</string>
     <string name="exercise2">Areal Yoga</string>
     <string name="exercise3">Family Yoga</string>
@@ -18,7 +18,7 @@
     <string name="confirm_checkBox">Confirm</string>
     <string name="createBooking_btn">Create Session</string>
 
-    <string-array name = "daysOfTheWeek">
+    <string-array name="daysOfTheWeek">
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
@@ -28,7 +28,7 @@
         <item>Sunday</item>
     </string-array>
 
-    <string-array name = "timeOfTheCourse">
+    <string-array name="timeOfTheCourse">
         <item>09:00 – 10:00</item>
         <item>10:00 – 11:00</item>
         <item>11:00 – 12:00</item>

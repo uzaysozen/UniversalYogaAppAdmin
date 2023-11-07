@@ -27,7 +27,8 @@ public class LandingPage extends AppCompatActivity {
         addToSchedule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent AddingClassIntent = new Intent(LandingPage.this, AddingClassInstance.class);
+                startActivity(AddingClassIntent);
             }
         });
     }
