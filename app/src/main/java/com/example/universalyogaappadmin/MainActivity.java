@@ -20,12 +20,7 @@ public class MainActivity extends AppCompatActivity {
         new AlertDialog.Builder(this).setTitle("Details Entered").setMessage(
                 "Detals Entered:\n" + strWeek + "\n " + strTime + "\n " + strCapacity + "\n " +
                         strPrice + "\n " + strRadio + "\n " + strDesc
-        ).setNegativeButton("Confrim", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        }).setNeutralButton("Back", new DialogInterface.OnClickListener() {
+        ).setNeutralButton("Back", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {}
         }).show();
@@ -46,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 strPrice = priceInput.getText().toString(),
                 strRadio = radioButtonInput.getText().toString(),
                 strDesc = descriptionInput.getText().toString();
+
         displayNextAlert(strWeek, strTime,strCapacity, strPrice, strRadio, strDesc);
     }
     @Override
