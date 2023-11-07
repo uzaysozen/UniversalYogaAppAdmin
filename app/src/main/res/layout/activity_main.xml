@@ -9,13 +9,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".MainActivity">
+            tools:context=".MainActivity"
+            android:background="@drawable/yoga">
 
             <TextView
                 android:id="@+id/Dayoftheweek"
@@ -83,9 +84,9 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="80dp"
+                android:entries="@array/daysOfTheWeek"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline"
-                android:entries="@array/daysOfTheWeek"/>
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -107,9 +108,9 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="70dp"
                 android:layout_marginEnd="80dp"
+                android:entries="@array/timeOfTheCourse"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline"
-                android:entries="@array/timeOfTheCourse"/>
+                app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <EditText
                 android:id="@+id/editTextNumber"
@@ -140,8 +141,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="240dp"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.17"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
                 app:layout_constraintTop_toTopOf="@+id/guideline">
 
@@ -149,6 +151,7 @@
                     android:id="@+id/radioButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:rotationX="-360"
                     android:text="@string/exercise1" />
 
                 <RadioButton
@@ -175,7 +178,7 @@
                 android:id="@+id/editTextTextMultiLine"
                 android:layout_width="295dp"
                 android:layout_height="80dp"
-                android:layout_marginTop="300dp"
+                android:layout_marginTop="460dp"
                 android:ems="10"
                 android:gravity="start|top"
                 android:hint="Description"
@@ -188,7 +191,7 @@
                 android:id="@+id/checkBox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="412dp"
+                android:layout_marginTop="550dp"
                 android:text="@string/confirm_checkBox"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.467"
@@ -199,7 +202,7 @@
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="484dp"
+                android:layout_marginTop="600dp"
                 android:text="@string/createBooking_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.457"
