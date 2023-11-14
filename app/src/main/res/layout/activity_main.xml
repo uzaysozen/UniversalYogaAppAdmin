@@ -23,15 +23,15 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/dayOfTheWeek"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner2"
-                app:layout_constraintEnd_toStartOf="@+id/spinner2"
+                app:layout_constraintBottom_toBottomOf="@+id/DaySpinner"
+                app:layout_constraintEnd_toStartOf="@+id/DaySpinner"
                 app:layout_constraintHorizontal_bias="0.505"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/spinner2"
+                app:layout_constraintTop_toTopOf="@+id/DaySpinner"
                 app:layout_constraintVertical_bias="1.0" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/PriceInputText"
                 android:layout_width="110dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="196dp"
@@ -43,7 +43,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <Spinner
-                android:id="@+id/spinner3"
+                android:id="@+id/TimeSpinner"
                 android:layout_width="110dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="84dp"
@@ -53,7 +53,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <Spinner
-                android:id="@+id/spinner2"
+                android:id="@+id/DaySpinner"
                 android:layout_width="110dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="40dp"
@@ -63,7 +63,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <EditText
-                android:id="@+id/editTextNumber"
+                android:id="@+id/ClassCapacityInputText"
                 android:layout_width="110dp"
                 android:layout_height="40dp"
                 android:layout_marginTop="136dp"
@@ -79,11 +79,11 @@
                 android:layout_width="110dp"
                 android:layout_height="30dp"
                 android:text="@string/capacity"
-                app:layout_constraintBottom_toBottomOf="@+id/editTextNumber"
-                app:layout_constraintEnd_toStartOf="@+id/editTextNumber"
+                app:layout_constraintBottom_toBottomOf="@+id/ClassCapacityInputText"
+                app:layout_constraintEnd_toStartOf="@+id/ClassCapacityInputText"
                 app:layout_constraintHorizontal_bias="0.505"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/editTextNumber"
+                app:layout_constraintTop_toTopOf="@+id/ClassCapacityInputText"
                 app:layout_constraintVertical_bias="1.0" />
 
             <TextView
@@ -91,11 +91,11 @@
                 android:layout_width="110dp"
                 android:layout_height="30dp"
                 android:text="@string/price"
-                app:layout_constraintBottom_toBottomOf="@+id/editTextNumber2"
-                app:layout_constraintEnd_toStartOf="@+id/editTextNumber2"
+                app:layout_constraintBottom_toBottomOf="@+id/PriceInputText"
+                app:layout_constraintEnd_toStartOf="@+id/PriceInputText"
                 app:layout_constraintHorizontal_bias="0.505"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/editTextNumber2"
+                app:layout_constraintTop_toTopOf="@+id/PriceInputText"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -104,11 +104,11 @@
                 android:layout_height="30dp"
                 android:layout_marginTop="24dp"
                 android:text="@string/timeOfCourse"
-                app:layout_constraintBottom_toBottomOf="@+id/spinner3"
-                app:layout_constraintEnd_toStartOf="@+id/spinner3"
+                app:layout_constraintBottom_toBottomOf="@+id/TimeSpinner"
+                app:layout_constraintEnd_toStartOf="@+id/TimeSpinner"
                 app:layout_constraintHorizontal_bias="0.505"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
-                app:layout_constraintTop_toTopOf="@+id/spinner3"
+                app:layout_constraintTop_toTopOf="@+id/TimeSpinner"
                 app:layout_constraintVertical_bias="0.666" />
 
             <androidx.appcompat.widget.Toolbar
@@ -139,7 +139,7 @@
                 app:layout_constraintGuide_begin="20dp" />
 
             <RadioGroup
-                android:id="@+id/radioGroup"
+                android:id="@+id/classTypeGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="280dp"
@@ -150,27 +150,27 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/FlowYogaRB"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:rotationX="-360"
                     android:text="@string/exercise1" />
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/ArealYogaRB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/exercise2" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/FamilyYogaRB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/exercise3" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/MeditationRB"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/exercise4" />
@@ -178,7 +178,7 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/editTextTextMultiLine"
+                android:id="@+id/DescriptionText"
                 android:layout_width="295dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="496dp"
@@ -192,7 +192,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/CreateSessionButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="572dp"
@@ -203,7 +203,7 @@
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/chooseOneText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="65dp"
@@ -211,7 +211,7 @@
                 android:layout_marginEnd="266dp"
                 android:text="*Choose one"
                 android:textColor="#B5B3B3"
-                app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+                app:layout_constraintBottom_toTopOf="@+id/classTypeGroup"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -219,7 +219,7 @@
                 app:layout_constraintVertical_bias="0.675" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/RequiredFieldText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
