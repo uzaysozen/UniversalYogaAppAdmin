@@ -11,10 +11,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "YogaStudio";
     private SQLiteDatabase database;
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 6;
 
-    public static final String TABLE_NAME = "courses";
-    public static final String ID_COLUMN = "courseID";
+    public static final String COURSE_TABLE_NAME = "courses";
+    public static final String COURSE_ID_COLUMN = "courseID";
     public static final String DAY_OF_WEEK_COLUMN = "day_of_week";
     public static final String COLUMN_NAME_TIME = "time";
     public static final String CAPACITY_COLUMN = "capacity";
@@ -23,14 +23,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CLASS_TYPE_COLUMN = "class_type";
     public static final String DESCRIPTION_COLUMN = "description";
 
-    private static final String DATABASE_CREATE = String.format(
+    /******************************************************************/
+    //Instance Properties
+    public static final String INSTANCE_TABLE_NAME = "instanceName";
+    public static final String INSTANCE_ID_COLUMN = "instanceID";
+    public static final String DATE_COLUMN = "date";
+    public static final String TEACHER_COLUMN = "teacherName";
+    public static final String COMMENTS_COLUMN = "comments";
+
+    private static final String CREATE_COURSE_TABLE = String.format(
             "CREATE TABLE %s (" +
-            " %s INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            " %s TEXT, " +
-            " %s TEXT," +
-            " %s TEXT," +
-            " %s TEXT," +
-            " %s TEXT)", TABLE_NAME, ID_COLUMN, DAY_OF_WEEK_COLUMN, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN);
+            "%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            "%s TEXT," +
+            "%s TEXT," +
+            "%s TEXT," +
+            "%s TEXT," +
+            " %s TEXT)", COURSE_TABLE_NAME, COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN);
+
+    private static final String INSTANCE_TABLE_CREATE = String.format(
+            "CREATE TABLE %s (" +
+                    "%s INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "%s TEXT," +
+                    "%s TEXT," +
+                    "%s TEXT," +
+                    "%s INTEGER," +
+                    "FOREIGN KEY(%s) REFERENCES %s (%s))", INSTANCE_TABLE_NAME, INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN,COURSE_ID_COLUMN, COURSE_TABLE_NAME, COURSE_ID_COLUMN);
 
 
     public DatabaseHelper(Context context) {
@@ -39,12 +56,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DATABASE_CREATE);
+        db.execSQL(CREATE_COURSE_TABLE);
+        db.execSQL(INSTANCE_TABLE_CREATE);
+    }
+
+    @Override
+    public void onConfigure(SQLiteDatabase db) {
+        db.execSQL("PRAGMA foreign_keys=ON");
+        //super.onConfigure(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(" DROP TABLE IF EXISTS " + DATABASE_NAME);
+        db.execSQL(" DROP TABLE IF EXISTS " + INSTANCE_TABLE_NAME);
+        db.execSQL(" DROP TABLE IF EXISTS " + COURSE_TABLE_NAME);
 
         Log.w(this.getClass().getName(), DATABASE_NAME + " database upgrade to version " + newVersion + " - old data lost");
 
