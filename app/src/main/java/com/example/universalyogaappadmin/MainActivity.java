@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,10 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayNextAlert(String strWeek, String strTime, String strCapacity,
                                   String strPrice, String strRadio, String strDesc){
-        new AlertDialog.Builder(this).setTitle("Details Entered").setMessage(
-                "Detals Entered:\n" + strWeek + "\n " + strTime + "\n " + strCapacity + "\n " +
-                        strPrice + "\n " + strRadio + "\n " + strDesc
-        ).setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
+        createAlert("Details Entered", "Detals Entered:\n" + strWeek + "\n " + strTime + "\n " + strCapacity + "\n " +
+                strPrice + "\n " + strRadio + "\n " + strDesc);
+    }
+
+    private void createAlert(String title, String message) {
+        new AlertDialog.Builder(this).setTitle(title).setMessage(message)
+                .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
@@ -37,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {}
         }).show();
+    }
+
+    private void createErrorAlert(String title, String message) {
+        new AlertDialog.Builder(this).setTitle(title).setMessage(message)
+                .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                }).show();
     }
 
     private void getInputs(){
@@ -54,7 +68,16 @@ public class MainActivity extends AppCompatActivity {
                 strPrice = priceInput.getText().toString(),
                 strRadio = radioButtonInput.getText().toString(),
                 strDesc = descriptionInput.getText().toString();
-        displayNextAlert(strWeek, strTime,strCapacity, strPrice, strRadio, strDesc);
+
+        if (TextUtils.isEmpty(strWeek)
+                || TextUtils.isEmpty(strTime)
+                || TextUtils.isEmpty(strCapacity)
+                || TextUtils.isEmpty(strPrice)
+                || TextUtils.isEmpty(strRadio)) {
+            createErrorAlert("Error Occurred", "Please fill all the required fields.");
+        } else {
+            displayNextAlert(strWeek, strTime,strCapacity, strPrice, strRadio, strDesc);
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
