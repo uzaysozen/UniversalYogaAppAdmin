@@ -41,4 +41,12 @@
         <item>17:00 – 18:00</item>
     </string-array>
 
+    <string name="url">https://stuiis.cms.gre.ac.uk/COMP1424CoreWS/comp1424cw</string>
+
+    <string name="json">{\"eventName\":\"mens 100 metres\",
+        \"resultList\":[{\"medalColour\":\"bronze\",
+        \"athleteName\":\"gatlin\"},{\"medalColour\":\"silver\",\"athleteName\":\"blake\"},
+        {\"medalColour\":\"gold\",\"athleteName\":\"bolt\"}]} </string>
+
+
 </resources>

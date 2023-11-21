@@ -11,10 +11,12 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.telecom.Call;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -26,7 +28,29 @@ import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
 import android.widget.Toast;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.time.DayOfWeek;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.X509TrustManager;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,12 +130,15 @@ public class MainActivity extends AppCompatActivity {
             displayNextAlert(strWeek, strTime,strCapacity, strPrice, strRadio, strDesc);
         }
     }
+
+    private WebView browser;
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = new DatabaseHelper(this);
+        browser = (WebView) findViewById(R.id.webkit);
 
         spinnerDayOfWeek = findViewById(R.id.DaySpinner);
         Time = findViewById(R.id.TimeSpinner);
@@ -135,7 +162,51 @@ public class MainActivity extends AppCompatActivity {
                 getInputs();
             }
         });
+
+        try{
+            URL pageURL = new URL(getString(R.string.url));
+            trustAllHosts();
+            HttpURLConnection con = (HttpURLConnection)pageURL.openConnection();
+            GetAndDisplayThread myThread = new GetAndDisplayThread(this, con);
+
+            String jsonString = getString(R.string.json);
+
+            JsonThread myTask = new JsonThread(this, con, jsonString);
+            Thread t1 = new Thread(myTask, "JSON Thread");
+            t1.start();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
+
+    private void trustAllHosts() {
+        // Create a trust manager that does not validate certificate chains  TrustManager[] trustAllCerts = new TrustManager[] {
+        new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[]{
+
+                };
+            }
+
+            public void checkClientTrusted(X509Certificate[] chain, String authType)
+                    throws CertificateException {
+            }
+
+            public void checkServerTrusted(X509Certificate[] chain, String authType)
+                    throws CertificateException {
+            }
+        };
+
+        try {
+            SSLContext sc = SSLContext.getInstance("TLS");
+            sc.init(null, trustAllCerts, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -151,5 +222,119 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static class GetAndDisplayThread implements Runnable{
+        private final HttpURLConnection con;
+        private final AppCompatActivity activity;
+
+        public GetAndDisplayThread(AppCompatActivity activity, HttpURLConnection con){
+            this.con = con;
+            this.activity = activity;
+        }
+
+        @Override
+        public void run() {
+            String response = "";
+            try{
+                response = readStream(con.getInputStream());
+            }
+            catch(IOException e){
+                {e.printStackTrace();
+            }
+
+                String requiredData = "";
+                try {
+                    requiredData = extractRequiredData(response);
+                }
+                catch (Exception exception) {
+                    e.printStackTrace();
+                }
+
+                showResult(requiredData);
+            }
+        }
+
+        private String readStream(InputStream in) {
+            StringBuilder sb = new StringBuilder();
+            try(BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(in))) {
+                String nextLine = "";
+                while ((nextLine = reader.readLine()) != null) {
+                    sb.append(nextLine);
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
+        }
+
+        private void showResult(String response) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    String page = generatePage(response);
+                    Log.i("xxxx", page);
+                    ((MainActivity)activity).browser.loadData(page,"text/html","UTF-8");
+                }
+            });
+        }
+
+        private String generatePage(String content) {
+            return "<html><body><h1>" + content + "</h1></body></html>";
+        }
+
+        private String extractRequiredData(String responseBody) throws Exception{
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+
+            Document embeddedDoc = builder.parse(new InputSource(new StringReader(responseBody)));
+
+            NodeList titleNodes = embeddedDoc.getElementsByTagName("title");
+            if (titleNodes != null){
+                Element aTitleElement = (Element)titleNodes.item(0);
+                aTitleElement.normalize();
+                Node titleContent = aTitleElement.getFirstChild();
+                return titleContent.getNodeValue();
+            }
+
+            return "";
+        }
+
+        class JsonThread implements Runnable{
+            private AppCompatActivity activity;
+            private HttpURLConnection con;
+            private String jsonPayLoad;
+
+            public JsonThread(AppCompatActivity activity, HttpURLConnection con, String jsonPayLoad){
+                this.activity = activity;
+                this.con = con;
+                this.jsonPayLoad = jsonPayLoad;
+            }
+
+            @Override
+            public void run() {
+                String response = "";
+                if (prepareConnection()){
+                    response = postJson();
+                }
+                else{
+                    response = "Error preparing the connection";
+                }
+                showResult(response);
+            }
+
+            private boolean prepareConnection(){
+                try{
+                    con.setDoOutput(true);
+                    con.setRequestMethod("POST");
+                    con.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+                    return true;
+                }catch(ProtocolException e){
+                 e.printStackTrace();
+                }
+                return false;
+            }
+        }
     }
 }
