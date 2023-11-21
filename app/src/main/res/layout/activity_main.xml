@@ -111,19 +111,6 @@
                 app:layout_constraintTop_toTopOf="@+id/TimeSpinner"
                 app:layout_constraintVertical_bias="0.666" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="#00BCD4"
-                app:layout_constraintBottom_toTopOf="@+id/Dayoftheweek"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:title="Universal Yoga Admin App"
-                app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-                app:titleTextColor="#FFFFFF"
-                tools:layout_editor_absoluteX="0dp" />
-
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="wrap_content"
@@ -144,6 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="280dp"
                 android:orientation="vertical"
+                android:checkedButton="@id/radioButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.16"
                 app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -242,6 +230,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00BCD4"
+            app:title="Universal Yoga Admin App"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:titleTextColor="#FFFFFF" />
     </com.google.android.material.appbar.AppBarLayout>
 
 
