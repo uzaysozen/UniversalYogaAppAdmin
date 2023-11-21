@@ -9,7 +9,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/demo1">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -44,20 +45,20 @@
 
             <Spinner
                 android:id="@+id/TimeSpinner"
-                android:layout_width="110dp"
+                android:layout_width="156dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="84dp"
-                android:layout_marginEnd="76dp"
+                android:layout_marginEnd="30dp"
                 android:entries="@array/timeOfTheCourse"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
 
             <Spinner
                 android:id="@+id/DaySpinner"
-                android:layout_width="110dp"
+                android:layout_width="156dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginEnd="76dp"
+                android:layout_marginEnd="30dp"
                 android:entries="@array/daysOfTheWeek"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/guideline" />
@@ -234,10 +235,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#00BCD4"
+            android:background="#FEE4E5"
             app:title="Universal Yoga Admin App"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-            app:titleTextColor="#FFFFFF" />
+            app:titleTextColor="@color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
 

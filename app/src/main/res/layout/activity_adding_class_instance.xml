@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddingClassInstance">
+    tools:context=".AddingClassInstance"
+    android:background="@drawable/demo1">
 
     <ListView
         android:id="@+id/listview"
@@ -24,10 +25,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#00BCD4"
+            android:background="#FEE4E5"
             app:title="Universal Yoga Admin App"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-            app:titleTextColor="#FFFFFF" />
+            app:titleTextColor="@color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
