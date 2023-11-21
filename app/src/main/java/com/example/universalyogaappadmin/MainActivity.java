@@ -95,7 +95,14 @@ public class MainActivity extends AppCompatActivity {
                 || TextUtils.isEmpty(strPrice)
                 || TextUtils.isEmpty(strRadio)) {
             createErrorAlert("Error Occurred", "Please fill all the required fields.");
+
         } else {
+            long courseId = dbHelper.insertDetails(strWeek, strTime, strCapacity, strPrice, strRadio, strDesc);
+
+            //Toast.makeText(this, "Class has been created with id:" + courseId, Toast.LENGTH_SHORT).show();
+
+            //Intent intent = new Intent(this, DetailsActivity.class);
+            //startActivity(intent);
             displayNextAlert(strWeek, strTime,strCapacity, strPrice, strRadio, strDesc);
         }
     }
@@ -109,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
         spinnerDayOfWeek = findViewById(R.id.DaySpinner);
         Time = findViewById(R.id.TimeSpinner);
         editTextCapacity = findViewById(R.id.ClassCapacityInputText);
-        //editDuration = findViewById(R.id.classcapacity);
         editPrice = findViewById(R.id.PriceInputText);
         editClass_type = findViewById(R.id.classTypeGroup);
         editDescription = findViewById(R.id.DescriptionText);
@@ -129,31 +135,6 @@ public class MainActivity extends AppCompatActivity {
                 getInputs();
             }
         });
-    }
-
-    @SuppressLint("WrongViewCast")
-    private void saveDetails() {
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-
-        EditText dayTxt = findViewById(R.id.Dayoftheweek);
-        EditText capacityTxt = findViewById(R.id.classcapacity);
-        //EditText timeTxt = findViewById(R.id.);
-        EditText priceTxt = findViewById(R.id.PriceInputText);
-        EditText class_typeTxt = findViewById(R.id.classTypeGroup);
-        EditText descriptionTxt = findViewById(R.id.DescriptionText);
-
-        String day = dayTxt.getText().toString();
-        String capacity = capacityTxt.getText().toString();
-        String price = priceTxt.getText().toString();
-        String class_type = class_typeTxt.getText().toString();
-        String description = descriptionTxt.getText().toString();
-
-        long courseId = dbHelper.insertDetails(day, capacity, price, class_type, description);
-
-        Toast.makeText(this, "Class has been created with id:" + courseId, Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(this, DetailsActivity.class);
-        startActivity(intent);
     }
 
     @Override

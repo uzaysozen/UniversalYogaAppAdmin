@@ -14,7 +14,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         DatabaseHelper db = new DatabaseHelper(this);
 
-        String details = db.getDetails();
+        String details = db.getCourseDetails();
 
         TextView detailsTxt = findViewById(R.id.DescriptionText);
 

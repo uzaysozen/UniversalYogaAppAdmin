@@ -11,21 +11,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "YogaStudio";
     private SQLiteDatabase database;
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 9;
 
     public static final String COURSE_TABLE_NAME = "courses";
     public static final String COURSE_ID_COLUMN = "courseID";
-    public static final String DAY_OF_WEEK_COLUMN = "day_of_week";
+    public static final String DAY_OF_WEEK_COLUMN = "dayOfWeek";
     public static final String COLUMN_NAME_TIME = "time";
     public static final String CAPACITY_COLUMN = "capacity";
-    public static final String COLUMN_NAME_DURATION = "duration";
     public static final String PRICE_COLUMN = "price";
-    public static final String CLASS_TYPE_COLUMN = "class_type";
+    public static final String CLASS_TYPE_COLUMN = "classType";
     public static final String DESCRIPTION_COLUMN = "description";
 
     /******************************************************************/
     //Instance Properties
-    public static final String INSTANCE_TABLE_NAME = "instanceName";
+    public static final String INSTANCE_TABLE_NAME = "classInstance";
     public static final String INSTANCE_ID_COLUMN = "instanceID";
     public static final String DATE_COLUMN = "date";
     public static final String TEACHER_COLUMN = "teacherName";
@@ -38,7 +37,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "%s TEXT," +
             "%s TEXT," +
             "%s TEXT," +
-            " %s TEXT)", COURSE_TABLE_NAME, COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN);
+            "%s TEXT," +
+            " %s TEXT)", COURSE_TABLE_NAME, COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN);
 
     private static final String INSTANCE_TABLE_CREATE = String.format(
             "CREATE TABLE %s (" +
@@ -76,23 +76,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertDetails(String dayOfTheWeek, String capacity, String price, String class_type, String description){
+    public long insertDetails(String dayOfTheWeek, String time, String capacity, String price, String class_type, String description){
         ContentValues rowValues = new ContentValues();
 
         rowValues.put(DAY_OF_WEEK_COLUMN, dayOfTheWeek);
-        //rowValues.put(COLUMN_NAME_TIME, time);
+        rowValues.put(COLUMN_NAME_TIME, time);
         rowValues.put(CAPACITY_COLUMN, capacity);
-        //rowValues.put(COLUMN_NAME_DURATION, duration);
         rowValues.put(PRICE_COLUMN, price);
         rowValues.put(CLASS_TYPE_COLUMN, class_type);
         rowValues.put(DESCRIPTION_COLUMN, description);
 
-        return database.insertOrThrow(DATABASE_NAME, null, rowValues);
+        return database.insertOrThrow(COURSE_TABLE_NAME, null, rowValues);
     }
 
-    public String getDetails(){
-        Cursor results = database.query("details",
-                new String[] {"dayOfTheWeek", " time", "capacity", "duration", "price", "class_type", "description"}, null,null,null,null,"dayOfTheWeek");
+    public String getCourseDetails(){
+        Cursor results = database.query(COURSE_TABLE_NAME,
+                new String[] {COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN}, null,null,null,null,DAY_OF_WEEK_COLUMN);
 
         String resultText = "";
 
@@ -102,17 +101,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String dayOfTheWeek = results.getString(1);
             String time = results.getString(2);
             String capacity = results.getString(3);
-            String duration = results.getString(4);
-            String price = results.getString(5);
-            String class_type = results.getString(6);
-            String description = results.getString(7);
+            String price = results.getString(4);
+            String class_type = results.getString(5);
+            String description = results.getString(6);
 
-            resultText += id + " " + dayOfTheWeek + " " + time + " " + capacity + " " + duration + " " + price + " " + class_type + " " + description + "\n";
+            resultText += id + " " + dayOfTheWeek + " " + time + " " + capacity + " " + price + " " + class_type + " " + description + "\n";
 
             results.moveToNext();
         }
 
-        return  resultText;
+        return resultText;
     }
 }
 

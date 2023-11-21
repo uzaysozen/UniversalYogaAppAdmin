@@ -19,17 +19,21 @@ import java.util.List;
 public class AddingClassInstance extends AppCompatActivity {
 
     private ListView lv;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dbHelper = new DatabaseHelper(this);
         setContentView(R.layout.activity_adding_class_instance);
         Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appToolbar);
+        String result = dbHelper.getCourseDetails();
 
         lv = (ListView) findViewById(R.id.listview);
         List<String> ls = new ArrayList<String>();
-        ls.add("Item 1");
+
+        ls.add("");
         ls.add("Item 2");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
