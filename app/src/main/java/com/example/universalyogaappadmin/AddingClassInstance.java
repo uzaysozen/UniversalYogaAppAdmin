@@ -33,8 +33,8 @@ public class AddingClassInstance extends AppCompatActivity {
         lv = (ListView) findViewById(R.id.listview);
         List<String> ls = new ArrayList<String>();
 
-        ls.add("");
-        ls.add("Item 2");
+        ls.add(result);
+        //ls.add("Item 2");
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,

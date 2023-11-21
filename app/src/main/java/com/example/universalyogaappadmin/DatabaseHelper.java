@@ -4,8 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -89,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return database.insertOrThrow(COURSE_TABLE_NAME, null, rowValues);
     }
 
-    public String getCourseDetails(){
+    /*public String getCourseDetails(){
         Cursor results = database.query(COURSE_TABLE_NAME,
                 new String[] {COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN}, null,null,null,null,DAY_OF_WEEK_COLUMN);
 
@@ -111,6 +116,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return resultText;
+    }*/
+
+    public String getCourseDetails() {
+        Cursor results = database.query(COURSE_TABLE_NAME,
+                new String[] {COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN}, null, null, null, null, DAY_OF_WEEK_COLUMN);
+
+        JSONArray coursesArray = new JSONArray();
+
+        results.moveToFirst();
+        while (!results.isAfterLast()) {
+            int id = results.getInt(0);
+            String dayOfTheWeek = results.getString(1);
+            String time = results.getString(2);
+            String capacity = results.getString(3);
+            String price = results.getString(4);
+            String classType = results.getString(5);
+            String description = results.getString(6);
+
+            JSONObject courseObject = new JSONObject();
+            try {
+                courseObject.put("id", id);
+                courseObject.put("dayOfTheWeek", dayOfTheWeek);
+                courseObject.put("time", time);
+                courseObject.put("capacity", capacity);
+                courseObject.put("price", price);
+                courseObject.put("classType", classType);
+                courseObject.put("description", description);
+            } catch (Exception e) {
+                throw new RuntimeException();
+            }
+            coursesArray.put(courseObject);
+
+            results.moveToNext();
+        }
+
+        return coursesArray.toString();
     }
 }
 
