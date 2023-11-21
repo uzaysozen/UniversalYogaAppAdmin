@@ -3,8 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/demo"
+    android:background="@drawable/demo1"
     android:layout_height="match_parent"
-    tools:context=".SpalshActivity">
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".SpalshActivity"/>
