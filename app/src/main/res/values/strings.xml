@@ -17,7 +17,7 @@
     <string name="hint_descriotion">Description</string>
     <string name="confirm_checkBox">Confirm</string>
     <string name="createBooking_btn">Create Session</string>
-    <string name="exit_command_label">EXIT</string>
+    <string name="exit_command_label">Go Back</string>
 
     <string-array name="daysOfTheWeek">
         <item>Monday</item>

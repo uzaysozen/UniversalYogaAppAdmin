@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.itemExit) {
-            Intent landingPage = new Intent(MainActivity.this, LandingPage.class);
+            Intent landingPage = new Intent(MainActivity.this, AddingClassInstance.class);
             startActivity(landingPage);
             return true;
         }
