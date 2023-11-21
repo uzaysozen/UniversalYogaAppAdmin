@@ -19,7 +19,7 @@
             android:name=".AddingClassInstance"
             android:exported="false" />
         <activity
-            android:name=".SpalshActivity"
+            android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,6 +30,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
