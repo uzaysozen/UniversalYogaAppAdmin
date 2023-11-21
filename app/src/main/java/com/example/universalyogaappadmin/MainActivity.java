@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appToolbar);
 
-        Button create = (Button)findViewById(R.id.button);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
