@@ -115,6 +115,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             results.moveToNext();
         }
 
+
         return resultText;
     }*/
 
@@ -137,7 +138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             JSONObject courseObject = new JSONObject();
             try {
                 courseObject.put("id", id);
-                courseObject.put("dayOfTheWeek", dayOfTheWeek);
+                courseObject.put("dayOfWeek", dayOfTheWeek);
                 courseObject.put("time", time);
                 courseObject.put("capacity", capacity);
                 courseObject.put("price", price);

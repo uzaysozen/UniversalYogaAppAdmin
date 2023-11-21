@@ -1,5 +1,13 @@
 package com.example.universalyogaappadmin;
 
+import static com.example.universalyogaappadmin.DatabaseHelper.CAPACITY_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.CLASS_TYPE_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.COLUMN_NAME_TIME;
+import static com.example.universalyogaappadmin.DatabaseHelper.COURSE_ID_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.DAY_OF_WEEK_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.DESCRIPTION_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.PRICE_COLUMN;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,6 +20,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +44,36 @@ public class AddingClassInstance extends AppCompatActivity {
 
         lv = (ListView) findViewById(R.id.listview);
         List<String> ls = new ArrayList<String>();
+        JSONArray arr;
+        try {
+            arr = new JSONArray(result);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
 
-        ls.add(result);
-        //ls.add("Item 2");
+        for (int i =0; i < arr.length(); i++) {
+            JSONObject jsonObject;
+            int id;
+            String dayOfWeek, time, capacity, price, classType, description;
+            try {
+                jsonObject = arr.getJSONObject(i);
+                id = jsonObject.getInt("id");
+                dayOfWeek = jsonObject.getString(DAY_OF_WEEK_COLUMN);
+                time = jsonObject.getString(COLUMN_NAME_TIME);
+                capacity = jsonObject.getString(CAPACITY_COLUMN);
+                price = jsonObject.getString(PRICE_COLUMN);
+                classType = jsonObject.getString(CLASS_TYPE_COLUMN);
+                description = jsonObject.getString(DESCRIPTION_COLUMN);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+            ls.add("Day of the Week: " + dayOfWeek + "\n" +
+                    "Time: " + time + "\n" +
+                    "Capacity: " + capacity + "\n" +
+                    "Price: £" + price + "\n" +
+                    "Class: " + classType + "\n" +
+                    "Description: " + description);
+        }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 this,
