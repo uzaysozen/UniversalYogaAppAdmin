@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayNextAlert(String strWeek, String strTime, String strCapacity,
                                   String strPrice, String strRadio, String strDesc){
-        createAlert("Details Entered", "Detals Entered:\n" + strWeek + "\n " + strTime + "\n " + strCapacity + "\n " +
+        createAlert("Details Entered", "Details Entered:\n" + strWeek + "\n " + strTime + "\n " + strCapacity + "\n " +
                 strPrice + "\n " + strRadio + "\n " + strDesc);
     }
 
@@ -55,7 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                Intent classInstancePage = new Intent(MainActivity.this, AddingClassInstance.class);
+                startActivity(classInstancePage);
             }
         }).setNeutralButton("Back", new DialogInterface.OnClickListener() {
             @Override
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
             //Intent intent = new Intent(this, DetailsActivity.class);
             //startActivity(intent);
             displayNextAlert(strWeek, strTime,strCapacity, strPrice, strRadio, strDesc);
+
         }
     }
     @SuppressLint("WrongViewCast")

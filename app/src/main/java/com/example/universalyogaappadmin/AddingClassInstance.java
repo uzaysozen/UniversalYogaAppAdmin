@@ -3,21 +3,29 @@ package com.example.universalyogaappadmin;
 import static com.example.universalyogaappadmin.DatabaseHelper.CAPACITY_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.CLASS_TYPE_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.COLUMN_NAME_TIME;
-import static com.example.universalyogaappadmin.DatabaseHelper.COURSE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DAY_OF_WEEK_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DESCRIPTION_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.PRICE_COLUMN;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +34,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +77,11 @@ public class AddingClassInstance extends AppCompatActivity {
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            ls.add("Day of the Week: " + dayOfWeek + "\n" +
+            SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("Day of the week: ");
+            ForegroundColorSpan green = new ForegroundColorSpan(Color.RED);
+            spannableStringBuilder.setSpan(green,
+                    0, 10, Spanned.SPAN_PRIORITY);
+            ls.add(spannableStringBuilder + dayOfWeek + "\n" +
                     "Time: " + time + "\n" +
                     "Capacity: " + capacity + "\n" +
                     "Price: £" + price + "\n" +
@@ -86,7 +99,8 @@ public class AddingClassInstance extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent classDatePage = new Intent(AddingClassInstance.this, ClassInstanceDateActivity.class);
+                startActivity(classDatePage);
             }
         });
 
