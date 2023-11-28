@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
             //String jsonString = getString(R.string.json);
 
             JsonThread myTask = new JsonThread(this, con, escapedJson);
-            System.out.println(escapedJson);
+            System.out.println("anan" + escapedJson);
             Thread t1 = new Thread(myTask, "JSON Thread");
             t1.start();
             //Toast.makeText(this, "debug", Toast.LENGTH_SHORT).show();
@@ -235,68 +235,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    /*private static class GetAndDisplayThread implements Runnable {
-        private final HttpURLConnection con;
-        private final AppCompatActivity activity;
-
-        public GetAndDisplayThread(AppCompatActivity activity, HttpURLConnection con) {
-            this.con = con;
-            this.activity = activity;
-        }
-
-        @Override
-        public void run() {
-            String response = "";
-            try {
-                response = readStream(con.getInputStream());
-            } catch (IOException e) {
-                {
-                    e.printStackTrace();
-                }
-
-                String requiredData = "";
-                try {
-                    requiredData = extractRequiredData(response);
-                } catch (Exception exception) {
-                    e.printStackTrace();
-                }
-
-                showResult(requiredData);
-            }
-        }
-
-        private void showResult(String response) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String page = generatePage(response);
-                    Log.i("xxxx", page);
-                    ((MainActivity) activity).browser.loadData(page, "text/html", "UTF-8");
-                }
-            });
-        }
-
-        private String generatePage(String content) {
-            return "<html><body><h1>" + content + "</h1></body></html>";
-        }
-
-        private String extractRequiredData(String responseBody) throws Exception {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-
-            Document embeddedDoc = builder.parse(new InputSource(new StringReader(responseBody)));
-
-            NodeList titleNodes = embeddedDoc.getElementsByTagName("title");
-            if (titleNodes != null) {
-                Element aTitleElement = (Element) titleNodes.item(0);
-                aTitleElement.normalize();
-                Node titleContent = aTitleElement.getFirstChild();
-                return titleContent.getNodeValue();
-            }
-
-            return "";
-        }
-    }*/
+    
     class JsonThread implements Runnable
     {
         private AppCompatActivity activity;
