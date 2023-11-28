@@ -28,7 +28,7 @@ public class ClassInstanceList extends AppCompatActivity {
         setSupportActionBar(appToolbar);
         JSONArray result = dbHelper.getCourseDetails();
 
-        lv = (ListView) findViewById(R.id.listview);
+        lv = (ListView) findViewById(R.id.instanceListView);
 
         ClassAdapter classAdapter = new ClassAdapter(getApplicationContext(), result);
         lv.setAdapter(classAdapter);

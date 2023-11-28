@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "YogaStudio";
     private SQLiteDatabase database;
-    public static final int DATABASE_VERSION = 9;
+    public static final int DATABASE_VERSION = 12;
 
     /******************************************************************/
     //Course Properties
@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "%s TEXT," +
                     "%s TEXT," +
                     "%s INTEGER," +
-                    "FOREIGN KEY(%s) REFERENCES %s (%s))", INSTANCE_TABLE_NAME, INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN,COURSE_ID_COLUMN, COURSE_TABLE_NAME, COURSE_ID_COLUMN);
+                    "FOREIGN KEY(%s) REFERENCES %s (%s) ON DELETE CASCADE)", INSTANCE_TABLE_NAME, INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN,COURSE_ID_COLUMN, COURSE_TABLE_NAME, COURSE_ID_COLUMN);
 
 
     public DatabaseHelper(Context context) {
@@ -201,8 +201,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             classObject.put("id", id);
             classObject.put("date", date);
             classObject.put("teacherName", teacherName);
-            classObject.put("", comments);
-            classObject.put("price", courseId);
+            classObject.put("comments", comments);
+            classObject.put("courseID", courseId);
         } catch (Exception e) {
             throw new RuntimeException();
         }

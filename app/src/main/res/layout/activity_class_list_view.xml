@@ -63,6 +63,15 @@
                 android:text="Delete"
                 android:textColor="#FFFFFF" />
 
+            <Button
+                android:id="@+id/instanceListBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FF5722"
+                android:text="Class List"
+                android:textColor="#FFFFFF" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

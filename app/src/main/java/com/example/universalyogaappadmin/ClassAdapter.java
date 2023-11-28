@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,6 +57,7 @@ public class ClassAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflater.inflate(R.layout.activity_class_list_view, null);
+
         TextView classContentTextView = (TextView) view.findViewById(R.id.classContent);
         JSONObject jsonObject;
         int courseId;
@@ -72,7 +74,7 @@ public class ClassAdapter extends BaseAdapter {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("Day of the week: ");
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder("Default Day of the week: ");
         ForegroundColorSpan green = new ForegroundColorSpan(Color.RED);
         spannableStringBuilder.setSpan(green,
                 0, 10, Spanned.SPAN_PRIORITY);
@@ -101,6 +103,12 @@ public class ClassAdapter extends BaseAdapter {
             dbHelper.deleteCourse(courseId);
             Intent classDatePage = new Intent(context, ClassInstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
             context.startActivity(classDatePage);
+        });
+
+        Button instanceListBtn = (Button) view.findViewById(R.id.instanceListBtn);
+        instanceListBtn.setOnClickListener(v -> {
+            Intent instanceListPage = new Intent(context, InstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+            context.startActivity(instanceListPage);
         });
         return view;
     }
