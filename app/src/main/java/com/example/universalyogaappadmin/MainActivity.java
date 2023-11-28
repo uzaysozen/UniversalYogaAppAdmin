@@ -33,6 +33,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import kotlinx.coroutines.flow.Flow;
+
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
@@ -130,20 +132,16 @@ public class MainActivity extends AppCompatActivity {
         Resources res = getResources();
         String[] daysOfWeek = res.getStringArray(R.array.daysOfTheWeek);
         String[] timeList = res.getStringArray(R.array.timeOfTheCourse);
-        JSONArray courseJson = dbHelper.getCourseDetails();
-        JSONObject jsonObject;
-        try {
-             jsonObject = courseJson.getJSONObject(0);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        if (courseId != -1) {
+        JSONObject courseJson;
+
+        if (courseId > -1) {
+            courseJson = dbHelper.getCourseById(courseId);
             try {
-                spinnerDayOfWeek.setSelection(Arrays.asList(daysOfWeek).indexOf(jsonObject.getString(DAY_OF_WEEK_COLUMN)));
-                Time.setSelection(Arrays.asList(timeList).indexOf(jsonObject.getString(COLUMN_NAME_TIME)));
-                editTextCapacity.setText(jsonObject.getString(CAPACITY_COLUMN));
-                editPrice.setText(jsonObject.getString(PRICE_COLUMN));
-                editDescription.setText(jsonObject.getString(DESCRIPTION_COLUMN));
+                spinnerDayOfWeek.setSelection(Arrays.asList(daysOfWeek).indexOf(courseJson.getString(DAY_OF_WEEK_COLUMN)));
+                Time.setSelection(Arrays.asList(timeList).indexOf(courseJson.getString(COLUMN_NAME_TIME)));
+                editTextCapacity.setText(courseJson.getString(CAPACITY_COLUMN));
+                editPrice.setText(courseJson.getString(PRICE_COLUMN));
+                editDescription.setText(courseJson.getString(DESCRIPTION_COLUMN));
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }

@@ -103,6 +103,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return database.delete(COURSE_TABLE_NAME, "courseID=?", new String[]{Integer.toString(courseId)});
     }
 
+    public JSONObject getCourseById(int courseId) {
+        Cursor results = database.query(COURSE_TABLE_NAME,
+                new String[] {COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN}, "courseID=?", new String[]{Integer.toString(courseId)}, null, null, DAY_OF_WEEK_COLUMN);
+        results.moveToFirst();
+        return getCourseObject(results);
+
+    }
+
     public JSONArray getCourseDetails() {
         Cursor results = database.query(COURSE_TABLE_NAME,
                 new String[] {COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN}, null, null, null, null, DAY_OF_WEEK_COLUMN);
@@ -111,32 +119,96 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         results.moveToFirst();
         while (!results.isAfterLast()) {
-            int id = results.getInt(0);
-            String dayOfTheWeek = results.getString(1);
-            String time = results.getString(2);
-            String capacity = results.getString(3);
-            String price = results.getString(4);
-            String classType = results.getString(5);
-            String description = results.getString(6);
-
-            JSONObject courseObject = new JSONObject();
-            try {
-                courseObject.put("id", id);
-                courseObject.put("dayOfWeek", dayOfTheWeek);
-                courseObject.put("time", time);
-                courseObject.put("capacity", capacity);
-                courseObject.put("price", price);
-                courseObject.put("classType", classType);
-                courseObject.put("description", description);
-            } catch (Exception e) {
-                throw new RuntimeException();
-            }
-            coursesArray.put(courseObject);
-
+            coursesArray.put(getCourseObject(results));
             results.moveToNext();
         }
-
         return coursesArray;
     }
+
+    private JSONObject getCourseObject(Cursor cursor) {
+        int id = cursor.getInt(0);
+        String dayOfTheWeek = cursor.getString(1);
+        String time = cursor.getString(2);
+        String capacity = cursor.getString(3);
+        String price = cursor.getString(4);
+        String classType = cursor.getString(5);
+        String description = cursor.getString(6);
+        JSONObject courseObject = new JSONObject();
+        try {
+            courseObject.put("id", id);
+            courseObject.put("dayOfWeek", dayOfTheWeek);
+            courseObject.put("time", time);
+            courseObject.put("capacity", capacity);
+            courseObject.put("price", price);
+            courseObject.put("classType", classType);
+            courseObject.put("description", description);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        return courseObject;
+    }
+
+    public long insertClassDetails(Integer classId, String classDate, String teacherName, String comments, Integer courseId, Boolean update){
+        ContentValues rowValues = new ContentValues();
+
+        rowValues.put(DATE_COLUMN, classDate);
+        rowValues.put(TEACHER_COLUMN, teacherName);
+        rowValues.put(COMMENTS_COLUMN, comments);
+        rowValues.put(COURSE_ID_COLUMN, courseId);
+        if (update) {
+            return database.update(INSTANCE_TABLE_NAME, rowValues, "instanceID=?", new String[]{Integer.toString(classId)});
+        }
+        else {
+            return database.insertOrThrow(INSTANCE_TABLE_NAME, null, rowValues);
+        }
+
+    }
+
+    public long deleteClass(int classId) {
+        return database.delete(INSTANCE_TABLE_NAME, "instanceID=?", new String[]{Integer.toString(classId)});
+    }
+
+    public JSONObject getClassById(int classId) {
+        Cursor results = database.query(INSTANCE_TABLE_NAME,
+                new String[] {INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, "instanceID=?", new String[]{Integer.toString(classId)}, null, null, DATE_COLUMN);
+        results.moveToFirst();
+        return getClassObject(results);
+
+    }
+
+    public JSONArray getClassDetails() {
+        Cursor results = database.query(INSTANCE_TABLE_NAME,
+                new String[] {INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, null, null, null, null, DATE_COLUMN);
+
+        JSONArray classArray = new JSONArray();
+
+        results.moveToFirst();
+        while (!results.isAfterLast()) {
+            classArray.put(getClassObject(results));
+            results.moveToNext();
+        }
+        return classArray;
+    }
+
+    private JSONObject getClassObject(Cursor cursor) {
+        int id = cursor.getInt(0);
+        String date = cursor.getString(1);
+        String teacherName = cursor.getString(2);
+        String comments = cursor.getString(3);
+        String courseId = cursor.getString(4);
+        JSONObject classObject = new JSONObject();
+        try {
+            classObject.put("id", id);
+            classObject.put("date", date);
+            classObject.put("teacherName", teacherName);
+            classObject.put("", comments);
+            classObject.put("price", courseId);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        return classObject;
+    }
 }
+
+
 

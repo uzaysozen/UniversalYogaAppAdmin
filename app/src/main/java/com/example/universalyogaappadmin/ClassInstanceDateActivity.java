@@ -20,6 +20,8 @@ import java.time.LocalDate;
 
 public class ClassInstanceDateActivity extends AppCompatActivity {
     LocalDate selectedDate;
+    int courseId;
+    private DatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +29,12 @@ public class ClassInstanceDateActivity extends AppCompatActivity {
 
         Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appToolbar);
+        dbHelper = new DatabaseHelper(this);
 
         Button setDateButton = findViewById(R.id.dateButton);
         CalendarView calendarView = findViewById(R.id.calendarView);
+        Intent intent = getIntent();
+        courseId = intent.getIntExtra("courseId", -1);
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
@@ -84,15 +89,10 @@ public class ClassInstanceDateActivity extends AppCompatActivity {
         } else {
             if (selectedDate != null) {
                 displayNextAlert(selectedDate.toString(), strTutor, strComments);
+                dbHelper.insertClassDetails(null, selectedDate.toString(), strTutor, strComments, courseId, false);
             } else {
                 displayNextAlert(LocalDate.now().toString(), strTutor, strComments);
             }
-            //long classInstanceId = dbHelper.insertDetails();
-
-            //Toast.makeText(this, "Class has been created with id:" + courseId, Toast.LENGTH_SHORT).show();
-
-            //Intent intent = new Intent(this, DetailsActivity.class);
-            //startActivity(intent);
 
         }
     }

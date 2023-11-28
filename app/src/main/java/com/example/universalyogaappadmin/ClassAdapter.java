@@ -86,13 +86,12 @@ public class ClassAdapter extends BaseAdapter {
         classContentTextView.setText(content);
         Button addClassButton = (Button) view.findViewById(R.id.addClassBtn);
         addClassButton.setOnClickListener(v -> {
-            Intent classDatePage = new Intent(context, ClassInstanceDateActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+            Intent classDatePage = new Intent(context, ClassInstanceDateActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);
             context.startActivity(classDatePage);
         });
 
         Button editCourseButton = (Button) view.findViewById(R.id.editCourseBtn);
         editCourseButton.setOnClickListener(v -> {
-            System.out.println("------------" + courseId);
             Intent courseEdit = new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);
             context.startActivity(courseEdit);
         });
