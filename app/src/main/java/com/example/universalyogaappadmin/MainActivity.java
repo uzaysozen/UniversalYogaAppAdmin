@@ -173,43 +173,43 @@ public class MainActivity extends AppCompatActivity {
             URL pageURL = new URL(getString(R.string.url));
             trustAllHosts();
             HttpURLConnection con = (HttpURLConnection) pageURL.openConnection();
-            GetAndDisplayThread myThread = new GetAndDisplayThread(this, con);
 
             String jsonString = getString(R.string.json);
 
             JsonThread myTask = new JsonThread(this, con, jsonString);
             Thread t1 = new Thread(myTask, "JSON Thread");
             t1.start();
+            //Toast.makeText(this, "debug", Toast.LENGTH_SHORT).show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void trustAllHosts() {
-        TrustManager[] trustAllCerts = new TrustManager[]{
-                new X509TrustManager() {
-                    public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-                        return new java.security.cert.X509Certificate[]{};
-                    }
+        // Create a trust manager that does not validate certificate chains
+        TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                return new java.security.cert.X509Certificate[] {};
+            }
 
-                    public void checkClientTrusted(X509Certificate[] chain, String authType)
-                            throws CertificateException {
-                    }
+            public void checkClientTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
+            }
 
-                    public void checkServerTrusted(X509Certificate[] chain, String authType)
-                            throws CertificateException {
-                    }
-                }
-        };
+            public void checkServerTrusted(X509Certificate[] chain,
+                                           String authType) throws CertificateException {
+            }
+        } };
 
         try {
             SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, trustAllCerts, new java.security.SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+            HttpsURLConnection
+                    .setDefaultSSLSocketFactory(sc.getSocketFactory());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static class GetAndDisplayThread implements Runnable {
+    /*private static class GetAndDisplayThread implements Runnable {
         private final HttpURLConnection con;
         private final AppCompatActivity activity;
 
@@ -289,20 +289,23 @@ public class MainActivity extends AppCompatActivity {
 
             return "";
         }
-    }
-    private class JsonThread implements Runnable {
+    }*/
+    class JsonThread implements Runnable
+    {
         private AppCompatActivity activity;
         private HttpURLConnection con;
         private String jsonPayLoad;
 
-        public JsonThread(AppCompatActivity activity, HttpURLConnection con, String jsonPayLoad) {
+        public JsonThread(AppCompatActivity activity, HttpURLConnection con, String jsonPayload)
+        {
             this.activity = activity;
             this.con = con;
-            this.jsonPayLoad = jsonPayLoad;
+            this.jsonPayLoad = jsonPayload;
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             String response = "";
             if (prepareConnection()) {
                 response = postJson();
@@ -312,23 +315,23 @@ public class MainActivity extends AppCompatActivity {
             showResult(response);
         }
 
-        private boolean prepareConnection() {
-            try {
-                con.setDoOutput(true);
-                con.setRequestMethod("POST");
-                con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                return true;
-            } catch (ProtocolException e) {
-                e.printStackTrace();
-            }
-            return false;
+
+        private void showResult(String response) {
+            activity.runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    String page = generatePage(response);
+                    ((MainActivity)activity).browser.loadData(page, "text/html", "UTF-8");
+                }
+            });
         }
 
         private String postJson() {
             String response = "";
             try {
-                String postParameters = "jsonpayload="
-                        + URLEncoder.encode(jsonPayLoad, "UTF-8");
+                String postParameters = "jsonpayload=" + URLEncoder.encode(jsonPayLoad, "UTF-8");
                 con.setFixedLengthStreamingMode(postParameters.getBytes().length);
                 PrintWriter out = new PrintWriter(con.getOutputStream());
                 out.print(postParameters);
@@ -336,42 +339,46 @@ public class MainActivity extends AppCompatActivity {
                 int responseCode = con.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     response = readStream(con.getInputStream());
+                    System.out.println("Selamin Aleykum" + response);
                 } else {
                     response = "Error contacting server: " + responseCode;
                 }
             } catch (Exception e) {
-                response = "Error executing code";
+                response = e.toString();//"Error executing code";
+                System.out.println("Selamin Aleykum" + response);
             }
             return response;
         }
 
-        private void showResult(String response) {
-            activity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    String page = generatePage(response);
-                    ((MainActivity) activity).browser.loadData(page,
-                            "text/html", "UTF-8");
+        private String readStream(InputStream in) {
+            StringBuilder sb = new StringBuilder();
+            try(BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
+                String nextLine = "";
+                while ((nextLine = reader.readLine()) != null) {
+                    sb.append(nextLine);
                 }
-            });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sb.toString();
         }
 
         private String generatePage(String content) {
             return "<html><body><p>" + content + "</p></body></html>";
         }
-    }
 
-    private static String readStream(InputStream in) {
-        StringBuilder sb = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(
-                new InputStreamReader(in))) {
-            String nextLine = "";
-            while ((nextLine = reader.readLine()) != null) {
-                sb.append(nextLine);
+
+        private boolean prepareConnection() {
+            try {
+                con.setDoOutput(true);
+                con.setRequestMethod("POST");
+                con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                return true;
+
+            } catch (ProtocolException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
-        return sb.toString();
     }
 }
