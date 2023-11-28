@@ -1,5 +1,13 @@
 package com.example.universalyogaappadmin;
 
+import java.util.Arrays;
+import static com.example.universalyogaappadmin.DatabaseHelper.CAPACITY_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.CLASS_TYPE_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.COLUMN_NAME_TIME;
+import static com.example.universalyogaappadmin.DatabaseHelper.DAY_OF_WEEK_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.DESCRIPTION_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.PRICE_COLUMN;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,26 +15,23 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.telecom.Call;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
-import android.widget.Toast;
 
-import java.time.DayOfWeek;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private RadioButton Meditation;
     private Button buttonAdd, buttonDelete;
 
+    private int courseId;
+
     private void displayNextAlert(String strWeek, String strTime, String strCapacity,
                                   String strPrice, String strRadio, String strDesc){
         createAlert("Details Entered", "Details Entered:\n" + strWeek + "\n " + strTime + "\n " + strCapacity + "\n " +
@@ -55,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent classInstancePage = new Intent(MainActivity.this, AddingClassInstance.class);
+                Intent classInstancePage = new Intent(MainActivity.this, ClassInstanceList.class);
                 startActivity(classInstancePage);
             }
         }).setNeutralButton("Back", new DialogInterface.OnClickListener() {
@@ -75,20 +82,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getInputs(){
-        Spinner weekInput = (Spinner)findViewById(R.id.DaySpinner);
-        Spinner timeInput = (Spinner)findViewById(R.id.TimeSpinner);
-        EditText capacityInput = (EditText)findViewById(R.id.ClassCapacityInputText);
-        EditText priceInput = (EditText)findViewById(R.id.PriceInputText);
-        EditText descriptionInput = (EditText)findViewById(R.id.DescriptionText);
-        RadioGroup group = (RadioGroup)findViewById(R.id.classTypeGroup);
-        RadioButton radioButtonInput = (RadioButton)findViewById(group.getCheckedRadioButtonId());
+        RadioButton radioButtonInput = (RadioButton)findViewById(editClass_type.getCheckedRadioButtonId());
 
-        String strWeek = weekInput.getSelectedItem().toString(),
-                strTime = timeInput.getSelectedItem().toString(),
-               strCapacity = capacityInput.getText().toString(),
-                strPrice = priceInput.getText().toString(),
+        String strWeek = spinnerDayOfWeek.getSelectedItem().toString(),
+                strTime = Time.getSelectedItem().toString(),
+               strCapacity = editTextCapacity.getText().toString(),
+                strPrice = editPrice.getText().toString(),
                 strRadio = radioButtonInput.getText().toString(),
-                strDesc = descriptionInput.getText().toString();
+                strDesc = editDescription.getText().toString();
 
         if (TextUtils.isEmpty(strWeek)
                 || TextUtils.isEmpty(strTime)
@@ -98,7 +99,10 @@ public class MainActivity extends AppCompatActivity {
             createErrorAlert("Error Occurred", "Please fill all the required fields.");
 
         } else {
-            long courseId = dbHelper.insertDetails(strWeek, strTime, strCapacity, strPrice, strRadio, strDesc);
+            if (courseId == -1)
+                dbHelper.insertCourseDetails(null, strWeek, strTime, strCapacity, strPrice, strRadio, strDesc, false);
+            else
+                dbHelper.insertCourseDetails(courseId, strWeek, strTime, strCapacity, strPrice, strRadio, strDesc, true);
 
             //Toast.makeText(this, "Class has been created with id:" + courseId, Toast.LENGTH_SHORT).show();
 
@@ -115,12 +119,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new DatabaseHelper(this);
 
+        Intent intent = getIntent();
+        courseId = intent.getIntExtra("courseId", -1);
         spinnerDayOfWeek = findViewById(R.id.DaySpinner);
         Time = findViewById(R.id.TimeSpinner);
         editTextCapacity = findViewById(R.id.ClassCapacityInputText);
         editPrice = findViewById(R.id.PriceInputText);
         editClass_type = findViewById(R.id.classTypeGroup);
         editDescription = findViewById(R.id.DescriptionText);
+        Resources res = getResources();
+        String[] daysOfWeek = res.getStringArray(R.array.daysOfTheWeek);
+        String[] timeList = res.getStringArray(R.array.timeOfTheCourse);
+        JSONArray courseJson = dbHelper.getCourseDetails();
+        JSONObject jsonObject;
+        try {
+             jsonObject = courseJson.getJSONObject(0);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        if (courseId != -1) {
+            try {
+                spinnerDayOfWeek.setSelection(Arrays.asList(daysOfWeek).indexOf(jsonObject.getString(DAY_OF_WEEK_COLUMN)));
+                Time.setSelection(Arrays.asList(timeList).indexOf(jsonObject.getString(COLUMN_NAME_TIME)));
+                editTextCapacity.setText(jsonObject.getString(CAPACITY_COLUMN));
+                editPrice.setText(jsonObject.getString(PRICE_COLUMN));
+                editDescription.setText(jsonObject.getString(DESCRIPTION_COLUMN));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
         FlowYoga = findViewById(R.id.FlowYogaRB);
         ArealYoga = findViewById(R.id.ArealYogaRB);
@@ -148,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.itemExit) {
-            Intent landingPage = new Intent(MainActivity.this, AddingClassInstance.class);
+            Intent landingPage = new Intent(MainActivity.this, ClassInstanceList.class);
             startActivity(landingPage);
             return true;
         }

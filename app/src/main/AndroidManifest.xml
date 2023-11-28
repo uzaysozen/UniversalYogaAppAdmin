@@ -13,10 +13,13 @@
         android:theme="@style/Theme.UniversalYogaAppAdmin"
         tools:targetApi="31">
         <activity
+            android:name=".ClassListView"
+            android:exported="false" />
+        <activity
             android:name=".ClassInstanceDateActivity"
             android:exported="false" />
         <activity
-            android:name=".AddingClassInstance"
+            android:name=".ClassInstanceList"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

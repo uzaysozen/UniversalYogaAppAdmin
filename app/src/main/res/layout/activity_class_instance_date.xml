@@ -21,7 +21,7 @@
             android:background="#FEE4E5"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:title="Pick Date for Class"
+            app:title="                      Schedule date"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
             app:titleTextColor="#cc1075" />
 

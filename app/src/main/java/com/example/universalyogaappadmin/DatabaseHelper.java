@@ -4,12 +4,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabaseLockedException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -18,6 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private SQLiteDatabase database;
     public static final int DATABASE_VERSION = 9;
 
+    /******************************************************************/
+    //Course Properties
     public static final String COURSE_TABLE_NAME = "courses";
     public static final String COURSE_ID_COLUMN = "courseID";
     public static final String DAY_OF_WEEK_COLUMN = "dayOfWeek";
@@ -81,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertDetails(String dayOfTheWeek, String time, String capacity, String price, String class_type, String description){
+    public long insertCourseDetails(Integer courseId, String dayOfTheWeek, String time, String capacity, String price, String class_type, String description, Boolean update){
         ContentValues rowValues = new ContentValues();
 
         rowValues.put(DAY_OF_WEEK_COLUMN, dayOfTheWeek);
@@ -90,36 +90,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         rowValues.put(PRICE_COLUMN, price);
         rowValues.put(CLASS_TYPE_COLUMN, class_type);
         rowValues.put(DESCRIPTION_COLUMN, description);
-
-        return database.insertOrThrow(COURSE_TABLE_NAME, null, rowValues);
-    }
-
-    /*public String getCourseDetails(){
-        Cursor results = database.query(COURSE_TABLE_NAME,
-                new String[] {COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN}, null,null,null,null,DAY_OF_WEEK_COLUMN);
-
-        String resultText = "";
-
-        results.moveToFirst();
-        while (!results.isAfterLast()) {
-            int id = results.getInt(0);
-            String dayOfTheWeek = results.getString(1);
-            String time = results.getString(2);
-            String capacity = results.getString(3);
-            String price = results.getString(4);
-            String class_type = results.getString(5);
-            String description = results.getString(6);
-
-            resultText += id + " " + dayOfTheWeek + " " + time + " " + capacity + " " + price + " " + class_type + " " + description + "\n";
-
-            results.moveToNext();
+        if (update) {
+            return database.update(COURSE_TABLE_NAME, rowValues, "courseID=?", new String[]{Integer.toString(courseId)});
+        }
+        else {
+            return database.insertOrThrow(COURSE_TABLE_NAME, null, rowValues);
         }
 
+    }
 
-        return resultText;
-    }*/
+    public long deleteCourse(int courseId) {
+        return database.delete(COURSE_TABLE_NAME, "courseID=?", new String[]{Integer.toString(courseId)});
+    }
 
-    public String getCourseDetails() {
+    public JSONArray getCourseDetails() {
         Cursor results = database.query(COURSE_TABLE_NAME,
                 new String[] {COURSE_ID_COLUMN, DAY_OF_WEEK_COLUMN, COLUMN_NAME_TIME, CAPACITY_COLUMN, PRICE_COLUMN, CLASS_TYPE_COLUMN, DESCRIPTION_COLUMN}, null, null, null, null, DAY_OF_WEEK_COLUMN);
 
@@ -152,7 +136,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             results.moveToNext();
         }
 
-        return coursesArray.toString();
+        return coursesArray;
     }
 }
 

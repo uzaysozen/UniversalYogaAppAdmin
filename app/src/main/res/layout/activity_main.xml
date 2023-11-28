@@ -240,7 +240,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#FEE4E5"
-            app:title="Create New Yoga Session"
+            app:title="Enter Course Details"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
             app:titleTextColor="#cc1075" />
     </com.google.android.material.appbar.AppBarLayout>

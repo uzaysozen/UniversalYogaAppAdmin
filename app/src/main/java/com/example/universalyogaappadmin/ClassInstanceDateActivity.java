@@ -1,13 +1,10 @@
 package com.example.universalyogaappadmin;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,17 +14,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.Toast;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.chrono.ChronoLocalDate;
 
 public class ClassInstanceDateActivity extends AppCompatActivity {
     LocalDate selectedDate;
@@ -60,7 +49,7 @@ public class ClassInstanceDateActivity extends AppCompatActivity {
                 .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent classInstancePage = new Intent(ClassInstanceDateActivity.this, AddingClassInstance.class);
+                        Intent classInstancePage = new Intent(ClassInstanceDateActivity.this, ClassInstanceList.class);
                         startActivity(classInstancePage);
                     }
                 }).setNeutralButton("Back", new DialogInterface.OnClickListener() {
@@ -118,7 +107,7 @@ public class ClassInstanceDateActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.itemExit) {
-            Intent classListPage = new Intent(ClassInstanceDateActivity.this, AddingClassInstance.class);
+            Intent classListPage = new Intent(ClassInstanceDateActivity.this, ClassInstanceList.class);
             startActivity(classListPage);
             return true;
         }

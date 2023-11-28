@@ -12,11 +12,11 @@
     <string name="exercise2">Areal Yoga</string>
     <string name="exercise3">Family Yoga</string>
     <string name="exercise4">Meditation</string>
-    <string name="hint_capacity">ex. 20</string>
-    <string name="hint_price">ex. £10</string>
+    <string name="hint_capacity">20</string>
+    <string name="hint_price">£10</string>
     <string name="hint_descriotion">Description</string>
     <string name="confirm_checkBox">Confirm</string>
-    <string name="createBooking_btn">Create Session</string>
+    <string name="createBooking_btn">Save Details</string>
     <string name="exit_command_label">Go Back</string>
 
     <string-array name="daysOfTheWeek">
