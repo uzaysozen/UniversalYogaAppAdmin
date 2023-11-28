@@ -16,9 +16,6 @@
             android:name=".ClassInstanceDateActivity"
             android:exported="false" />
         <activity
-            android:name=".LandingPage"
-            android:exported="false" />
-        <activity
             android:name=".AddingClassInstance"
             android:exported="false" />
         <activity
