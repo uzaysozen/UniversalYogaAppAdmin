@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                 strPrice + "\n " + strRadio + "\n " + strDesc);
     }
 
+    private String escapeJson (String json){
+        return json.replace("\"", "\\\"");
+    }
+
     private void createAlert(String title, String message) {
         new AlertDialog.Builder(this).setTitle(title).setMessage(message)
                 .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
@@ -145,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new DatabaseHelper(this);
         browser = (WebView) findViewById(R.id.webkit);
+        String result = dbHelper.getCourseDetails();
 
         spinnerDayOfWeek = findViewById(R.id.DaySpinner);
         Time = findViewById(R.id.TimeSpinner);
@@ -161,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         Button create = (Button) findViewById(R.id.CreateSessionButton);
         Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appToolbar);
+        String escapedJson = escapeJson(result);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,9 +180,10 @@ public class MainActivity extends AppCompatActivity {
             trustAllHosts();
             HttpURLConnection con = (HttpURLConnection) pageURL.openConnection();
 
-            String jsonString = getString(R.string.json);
+            //String jsonString = getString(R.string.json);
 
-            JsonThread myTask = new JsonThread(this, con, jsonString);
+            JsonThread myTask = new JsonThread(this, con, escapedJson);
+            System.out.println(escapedJson);
             Thread t1 = new Thread(myTask, "JSON Thread");
             t1.start();
             //Toast.makeText(this, "debug", Toast.LENGTH_SHORT).show();
