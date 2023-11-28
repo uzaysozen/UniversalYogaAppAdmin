@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new DatabaseHelper(this);
         browser = (WebView) findViewById(R.id.webkit);
-        String result = dbHelper.getCourseDetails();
+        String result = dbHelper.getCourseDetails().toString();
 
         Intent intent = getIntent();
         courseId = intent.getIntExtra("courseId", -1);
