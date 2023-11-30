@@ -179,9 +179,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public JSONArray getClassDetails() {
+    public JSONArray getClassDetails(int courseId) {
         Cursor results = database.query(INSTANCE_TABLE_NAME,
-                new String[] {INSTANCE_ID_COLUMN, INSTANCE_USER_ID, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, null, null, null, null, DATE_COLUMN);
+                new String[] {INSTANCE_ID_COLUMN, INSTANCE_USER_ID, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, "courseId=?", new String[]{Integer.toString(courseId)}, null, null, DATE_COLUMN);
 
         JSONArray classArray = new JSONArray();
 

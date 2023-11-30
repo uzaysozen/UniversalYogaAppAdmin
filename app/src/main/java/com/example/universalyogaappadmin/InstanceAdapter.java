@@ -65,12 +65,9 @@ public class InstanceAdapter extends BaseAdapter {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        String content = ("Id: " + instanceId+ "\n"
-                + "userID: " + userID + "\n"
-                + "Date: " + date + "\n"
+        String content = ("Date: " + date + "\n"
                 + "Teacher Name: " + teacherName + "\n"
-                + "Comments: " + comments + "\n" +
-                "CourseId: "+ courseId);
+                + "Comments: " + comments + "\n");
 
         instanceContentTextView.setText(content);
         return view;

@@ -101,13 +101,13 @@ public class ClassAdapter extends BaseAdapter {
         Button deleteCourseBtn = (Button) view.findViewById(R.id.deleteCourseBtn);
         deleteCourseBtn.setOnClickListener(v -> {
             dbHelper.deleteCourse(courseId);
-            Intent classDatePage = new Intent(context, ClassInstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+            Intent classDatePage = new Intent(context, ClassInstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(classDatePage);
         });
 
         Button instanceListBtn = (Button) view.findViewById(R.id.instanceListBtn);
         instanceListBtn.setOnClickListener(v -> {
-            Intent instanceListPage = new Intent(context, InstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);;
+            Intent instanceListPage = new Intent(context, InstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);;
             context.startActivity(instanceListPage);
         });
         return view;

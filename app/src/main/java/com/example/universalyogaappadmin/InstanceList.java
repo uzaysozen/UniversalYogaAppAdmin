@@ -17,6 +17,8 @@ public class InstanceList extends AppCompatActivity {
     private ListView lv;
     private DatabaseHelper dbHelper;
 
+    int courseId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,9 @@ public class InstanceList extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(appToolbar);
-        JSONArray result = dbHelper.getClassDetails();
+        Intent intent = getIntent();
+        courseId = intent.getIntExtra("courseId", -1);
+        JSONArray result = dbHelper.getClassDetails(courseId);
 
         lv = (ListView) findViewById(R.id.instanceListView);
 
