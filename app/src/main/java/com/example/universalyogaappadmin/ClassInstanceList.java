@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,6 +46,11 @@ public class ClassInstanceList extends AppCompatActivity {
         create.setOnClickListener(v -> {
             Intent createCoursePage = new Intent(ClassInstanceList.this, MainActivity.class);
             startActivity(createCoursePage);
+        });
+
+        FloatingActionButton upload = findViewById(R.id.uploadFloatingBtn);
+        upload.setOnClickListener(v -> {
+            Toast.makeText(this, "Class has been created with id:" , Toast.LENGTH_SHORT).show();
         });
     }
 }
