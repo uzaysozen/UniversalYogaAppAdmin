@@ -157,7 +157,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         dbHelper = new DatabaseHelper(this);
         browser = (WebView) findViewById(R.id.webkit);
-        String result = dbHelper.getCourseDetails().toString();
+        //String result = getResources().getString(R.string.json);
+        String result = dbHelper.getWebFormat().toString();
 
         Intent intent = getIntent();
         courseId = intent.getIntExtra("courseId", -1);
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
         Button create = (Button) findViewById(R.id.CreateSessionButton);
         Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appToolbar);
-        String escapedJson = escapeJson(result);
+        String escapedJson = result;
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override

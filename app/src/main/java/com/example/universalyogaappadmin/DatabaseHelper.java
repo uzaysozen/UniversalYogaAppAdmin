@@ -8,13 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "YogaStudio";
     private SQLiteDatabase database;
-    public static final int DATABASE_VERSION = 14;
+    public static final int DATABASE_VERSION = 15;
 
     /******************************************************************/
     //Course Properties
@@ -212,6 +213,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             throw new RuntimeException();
         }
         return classObject;
+    }
+
+    public JSONObject getWebFormat() {
+        JSONObject res = new JSONObject();
+        JSONArray detailListArr = new JSONArray();
+        JSONArray courses = getCourseDetails();
+
+        try {
+            res.put("userId", "evuk31");
+            for (int i = 0; i< courses.length(); i++) {
+                JSONArray classList = new JSONArray();
+                JSONObject course = new JSONObject();
+                JSONArray classInstances = getClassDetails(Integer.parseInt(courses.getJSONObject(i).getString("id")));
+                System.out.println("ananin "+classInstances);
+                course.put(DAY_OF_WEEK_COLUMN ,courses.getJSONObject(i).get(DAY_OF_WEEK_COLUMN).toString());
+                course.put("timeOfDay" ,courses.getJSONObject(i).get(COLUMN_NAME_TIME).toString());
+                for (int j = 0; j< classInstances.length(); j++) {
+                    JSONObject classObject = new JSONObject();
+                    classObject.put("date", classInstances.getJSONObject(j).get(DATE_COLUMN));
+                    classObject.put("teacher", classInstances.getJSONObject(j).get(TEACHER_COLUMN));
+                    classList.put(classObject);
+                }
+                course.put("classList", classList);
+                detailListArr.put(course);
+            }
+            res.put("detailList", detailListArr);
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+        return res;
     }
 }
 
