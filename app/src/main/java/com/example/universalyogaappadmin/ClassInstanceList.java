@@ -1,50 +1,55 @@
 package com.example.universalyogaappadmin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import org.json.JSONArray;
-import org.json.JSONException;
 
 public class ClassInstanceList extends AppCompatActivity {
 
     private ListView lv;
     private DatabaseHelper dbHelper;
 
+    int courseId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_class_instance_list);
+
         dbHelper = new DatabaseHelper(this);
-        setContentView(R.layout.class_instance_list);
-        Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(appToolbar);
-        JSONArray result = dbHelper.getCourseDetails();
+        Intent intent = getIntent();
+        courseId = intent.getIntExtra("courseId", -1);
+        JSONArray result = dbHelper.getClassDetails(courseId);
 
-        lv = (ListView) findViewById(R.id.listview);
+        lv = (ListView) findViewById(R.id.instanceListView);
 
-        ClassAdapter classAdapter = new ClassAdapter(getApplicationContext(), result);
-        lv.setAdapter(classAdapter);
+        ClassInstanceAdapter classInstanceAdapter = new ClassInstanceAdapter(getApplicationContext(), result);
+        lv.setAdapter(classInstanceAdapter);
+    }
 
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent classDatePage = new Intent(ClassInstanceList.this, ClassInstanceDateActivity.class);
-                startActivity(classDatePage);
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
-        FloatingActionButton create = findViewById(R.id.floatingActionButton);
-        create.setOnClickListener(v -> {
-            Intent createCoursePage = new Intent(ClassInstanceList.this, MainActivity.class);
-            startActivity(createCoursePage);
-        });
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.itemExit) {
+            Intent classListPage = new Intent(ClassInstanceList.this, CourseList.class);
+            startActivity(classListPage);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
