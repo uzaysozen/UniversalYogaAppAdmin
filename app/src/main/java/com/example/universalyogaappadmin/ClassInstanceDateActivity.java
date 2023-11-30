@@ -89,7 +89,7 @@ public class ClassInstanceDateActivity extends AppCompatActivity {
         } else {
             if (selectedDate != null) {
                 displayNextAlert(selectedDate.toString(), strTutor, strComments);
-                dbHelper.insertClassDetails(null, selectedDate.toString(), strTutor, strComments, courseId, false);
+                dbHelper.insertClassDetails(null, "evuk31",selectedDate.toString(), strTutor, strComments, courseId, false);
             } else {
                 displayNextAlert(LocalDate.now().toString(), strTutor, strComments);
             }

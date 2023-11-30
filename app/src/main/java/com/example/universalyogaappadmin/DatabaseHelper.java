@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "YogaStudio";
     private SQLiteDatabase database;
-    public static final int DATABASE_VERSION = 12;
+    public static final int DATABASE_VERSION = 14;
 
     /******************************************************************/
     //Course Properties
@@ -30,6 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /******************************************************************/
     //Instance Properties
     public static final String INSTANCE_TABLE_NAME = "classInstance";
+    public static final String INSTANCE_USER_ID = "userID";
     public static final String INSTANCE_ID_COLUMN = "instanceID";
     public static final String DATE_COLUMN = "date";
     public static final String TEACHER_COLUMN = "teacherName";
@@ -51,8 +52,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "%s TEXT," +
                     "%s TEXT," +
                     "%s TEXT," +
+                    "%s TEXT," +
                     "%s INTEGER," +
-                    "FOREIGN KEY(%s) REFERENCES %s (%s) ON DELETE CASCADE)", INSTANCE_TABLE_NAME, INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN,COURSE_ID_COLUMN, COURSE_TABLE_NAME, COURSE_ID_COLUMN);
+                    "FOREIGN KEY(%s) REFERENCES %s (%s) ON DELETE CASCADE)", INSTANCE_TABLE_NAME, INSTANCE_ID_COLUMN, INSTANCE_USER_ID, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN,COURSE_ID_COLUMN, COURSE_TABLE_NAME, COURSE_ID_COLUMN);
 
 
     public DatabaseHelper(Context context) {
@@ -148,9 +150,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return courseObject;
     }
 
-    public long insertClassDetails(Integer classId, String classDate, String teacherName, String comments, Integer courseId, Boolean update){
+    public long insertClassDetails(Integer classId, String userID, String classDate, String teacherName, String comments, Integer courseId, Boolean update){
         ContentValues rowValues = new ContentValues();
 
+        rowValues.put(INSTANCE_USER_ID, userID);
         rowValues.put(DATE_COLUMN, classDate);
         rowValues.put(TEACHER_COLUMN, teacherName);
         rowValues.put(COMMENTS_COLUMN, comments);
@@ -170,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public JSONObject getClassById(int classId) {
         Cursor results = database.query(INSTANCE_TABLE_NAME,
-                new String[] {INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, "instanceID=?", new String[]{Integer.toString(classId)}, null, null, DATE_COLUMN);
+                new String[] {INSTANCE_ID_COLUMN, INSTANCE_USER_ID, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, "instanceID=?", new String[]{Integer.toString(classId)}, null, null, DATE_COLUMN);
         results.moveToFirst();
         return getClassObject(results);
 
@@ -178,7 +181,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public JSONArray getClassDetails() {
         Cursor results = database.query(INSTANCE_TABLE_NAME,
-                new String[] {INSTANCE_ID_COLUMN, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, null, null, null, null, DATE_COLUMN);
+                new String[] {INSTANCE_ID_COLUMN, INSTANCE_USER_ID, DATE_COLUMN, TEACHER_COLUMN, COMMENTS_COLUMN, COURSE_ID_COLUMN}, null, null, null, null, DATE_COLUMN);
 
         JSONArray classArray = new JSONArray();
 
@@ -192,13 +195,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private JSONObject getClassObject(Cursor cursor) {
         int id = cursor.getInt(0);
-        String date = cursor.getString(1);
-        String teacherName = cursor.getString(2);
-        String comments = cursor.getString(3);
-        String courseId = cursor.getString(4);
+        String userID = cursor.getString(1);
+        String date = cursor.getString(2);
+        String teacherName = cursor.getString(3);
+        String comments = cursor.getString(4);
+        String courseId = cursor.getString(5);
         JSONObject classObject = new JSONObject();
         try {
             classObject.put("id", id);
+            classObject.put("userID", userID);
             classObject.put("date", date);
             classObject.put("teacherName", teacherName);
             classObject.put("comments", comments);

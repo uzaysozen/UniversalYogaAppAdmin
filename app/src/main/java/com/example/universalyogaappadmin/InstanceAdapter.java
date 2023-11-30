@@ -3,7 +3,9 @@ package com.example.universalyogaappadmin;
 import static com.example.universalyogaappadmin.DatabaseHelper.COMMENTS_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.COURSE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DATE_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.INSTANCE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.TEACHER_COLUMN;
+import static com.example.universalyogaappadmin.DatabaseHelper.INSTANCE_USER_ID;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -51,10 +53,11 @@ public class InstanceAdapter extends BaseAdapter {
         TextView instanceContentTextView = (TextView) view.findViewById(R.id.instanceText);
         JSONObject jsonObject;
         int instanceId;
-        String date, teacherName, comments, courseId;
+        String userID, date, teacherName, comments, courseId;
         try {
             jsonObject = instanceList.getJSONObject(i);
             instanceId = jsonObject.getInt("id");
+            userID = jsonObject.getString(INSTANCE_USER_ID);
             date = jsonObject.getString(DATE_COLUMN);
             teacherName = jsonObject.getString(TEACHER_COLUMN);
             comments = jsonObject.getString(COMMENTS_COLUMN);
@@ -62,9 +65,12 @@ public class InstanceAdapter extends BaseAdapter {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        String content = ("Date: " + date + "\n"
+        String content = ("Id: " + instanceId+ "\n"
+                + "userID: " + userID + "\n"
+                + "Date: " + date + "\n"
                 + "Teacher Name: " + teacherName + "\n"
-                + "Comments: " + comments + "\n");
+                + "Comments: " + comments + "\n" +
+                "CourseId: "+ courseId);
 
         instanceContentTextView.setText(content);
         return view;
