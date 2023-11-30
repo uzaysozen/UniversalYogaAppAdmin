@@ -1,9 +1,13 @@
 package com.example.universalyogaappadmin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -19,8 +23,7 @@ public class InstanceList extends AppCompatActivity {
         setContentView(R.layout.activity_instance_list);
 
         dbHelper = new DatabaseHelper(this);
-        setContentView(R.layout.class_instance_list);
-        Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar2);
         setSupportActionBar(appToolbar);
         JSONArray result = dbHelper.getClassDetails();
 
@@ -28,5 +31,21 @@ public class InstanceList extends AppCompatActivity {
 
         InstanceAdapter instanceAdapter = new InstanceAdapter(getApplicationContext(), result);
         lv.setAdapter(instanceAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.itemExit) {
+            Intent classListPage = new Intent(InstanceList.this, ClassInstanceList.class);
+            startActivity(classListPage);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

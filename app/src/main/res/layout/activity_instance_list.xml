@@ -23,9 +23,12 @@
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FEE4E5"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            android:background="#FEE4E5"/>
+            app:title="Class Instances"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:titleTextColor="#cc1075" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

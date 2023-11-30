@@ -3,7 +3,6 @@ package com.example.universalyogaappadmin;
 import static com.example.universalyogaappadmin.DatabaseHelper.COMMENTS_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.COURSE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DATE_COLUMN;
-import static com.example.universalyogaappadmin.DatabaseHelper.INSTANCE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.TEACHER_COLUMN;
 
 import android.content.Context;
@@ -47,7 +46,7 @@ public class InstanceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_instance_edit, null);
+        view = inflater.inflate(R.layout.activity_instance_list_view, null);
 
         TextView instanceContentTextView = (TextView) view.findViewById(R.id.instanceText);
         JSONObject jsonObject;
@@ -63,11 +62,9 @@ public class InstanceAdapter extends BaseAdapter {
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        String content = ("Id" + instanceId+ "\n"
-                + "Date: " + date + "\n"
+        String content = ("Date: " + date + "\n"
                 + "Teacher Name: " + teacherName + "\n"
-                + "Comments: " + comments + "\n" +
-                "CourseId"+ courseId);
+                + "Comments: " + comments + "\n");
 
         instanceContentTextView.setText(content);
         return view;

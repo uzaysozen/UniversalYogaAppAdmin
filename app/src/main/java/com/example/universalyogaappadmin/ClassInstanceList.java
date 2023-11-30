@@ -24,8 +24,8 @@ public class ClassInstanceList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         dbHelper = new DatabaseHelper(this);
         setContentView(R.layout.class_instance_list);
-        Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(appToolbar);
+        //Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar_top);
+        //setSupportActionBar(appToolbar);
         JSONArray result = dbHelper.getCourseDetails();
 
         lv = (ListView) findViewById(R.id.instanceListView);
