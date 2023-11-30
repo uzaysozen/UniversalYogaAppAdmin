@@ -4,72 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CourseList"
-    android:background="@drawable/demo1">
+    android:background="@drawable/demo1"
+    tools:context=".CourseList">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-
+    <WebView
+        android:id="@+id/webkit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:background="#FEE4E5"
+        android:backgroundTint="#FEE4E5"
+        app:layout_constraintBottom_toTopOf="@+id/instanceListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#FEE4E5"
-            app:title="Course List"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
-            app:titleTextColor="#cc1075" />
+    </WebView>
 
-        <WebView
-            android:id="@+id/webkit"
-            android:layout_width="410dp"
-            android:layout_height="75dp"
-            android:background="#FEE4E5"
-            android:backgroundTint="#FEE4E5" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FEE4E5"
+        app:layout_constraintBottom_toTopOf="@+id/webkit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Course List"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+        app:titleTextColor="#cc1075"
+        tools:visibility="visible" />
 
     <ListView
         android:id="@+id/instanceListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="410dp"
+        android:layout_height="550dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toTopOf="@+id/uploadFloatingBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar">
+        app:layout_constraintTop_toBottomOf="@+id/webkit">
 
     </ListView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/uploadFloatingBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_menu_upload"
+        app:backgroundTint="#4CAF50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instanceListView" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
         android:background="#cc1075"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
         app:backgroundTint="#cc1075"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appbar"
-        app:layout_constraintVertical_bias="0.98"
+        app:layout_constraintStart_toEndOf="@+id/uploadFloatingBtn"
+        app:layout_constraintTop_toBottomOf="@+id/instanceListView"
         app:rippleColor="#cc1075" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/uploadFloatingBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@android:drawable/ic_menu_upload"
-        app:backgroundTint="#4CAF50"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.27"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
