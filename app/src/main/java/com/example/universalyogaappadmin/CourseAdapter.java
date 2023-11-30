@@ -3,7 +3,6 @@ package com.example.universalyogaappadmin;
 import static com.example.universalyogaappadmin.DatabaseHelper.CAPACITY_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.CLASS_TYPE_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.COLUMN_NAME_TIME;
-import static com.example.universalyogaappadmin.DatabaseHelper.COURSE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DAY_OF_WEEK_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DESCRIPTION_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.PRICE_COLUMN;
@@ -20,19 +19,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ClassAdapter extends BaseAdapter {
+public class CourseAdapter extends BaseAdapter {
     Context context;
     JSONArray classList;
     LayoutInflater inflater;
     DatabaseHelper dbHelper;
 
-    public ClassAdapter(Context appContext, JSONArray classList) {
+    public CourseAdapter(Context appContext, JSONArray classList) {
         this.context = appContext;
         this.classList = classList;
         inflater = (LayoutInflater.from(appContext));
@@ -56,7 +54,7 @@ public class ClassAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_class_list_view, null);
+        view = inflater.inflate(R.layout.activity_course_list_view, null);
 
         TextView classContentTextView = (TextView) view.findViewById(R.id.classContent);
         JSONObject jsonObject;
@@ -88,26 +86,26 @@ public class ClassAdapter extends BaseAdapter {
         classContentTextView.setText(content);
         Button addClassButton = (Button) view.findViewById(R.id.addClassBtn);
         addClassButton.setOnClickListener(v -> {
-            Intent classDatePage = new Intent(context, ClassInstanceDateActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);
+            Intent classDatePage = new Intent(context, CreateClassInstance.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);
             context.startActivity(classDatePage);
         });
 
         Button editCourseButton = (Button) view.findViewById(R.id.editCourseBtn);
         editCourseButton.setOnClickListener(v -> {
-            Intent courseEdit = new Intent(context, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);
+            Intent courseEdit = new Intent(context, CreateCourse.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);
             context.startActivity(courseEdit);
         });
 
         Button deleteCourseBtn = (Button) view.findViewById(R.id.deleteCourseBtn);
         deleteCourseBtn.setOnClickListener(v -> {
             dbHelper.deleteCourse(courseId);
-            Intent classDatePage = new Intent(context, ClassInstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            Intent classDatePage = new Intent(context, CourseList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(classDatePage);
         });
 
         Button instanceListBtn = (Button) view.findViewById(R.id.instanceListBtn);
         instanceListBtn.setOnClickListener(v -> {
-            Intent instanceListPage = new Intent(context, InstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);;
+            Intent instanceListPage = new Intent(context, ClassInstanceList.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK).putExtra("courseId", courseId);;
             context.startActivity(instanceListPage);
         });
         return view;

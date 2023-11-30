@@ -2,7 +2,6 @@ package com.example.universalyogaappadmin;
 
 import java.util.Arrays;
 import static com.example.universalyogaappadmin.DatabaseHelper.CAPACITY_COLUMN;
-import static com.example.universalyogaappadmin.DatabaseHelper.CLASS_TYPE_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.COLUMN_NAME_TIME;
 import static com.example.universalyogaappadmin.DatabaseHelper.DAY_OF_WEEK_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DESCRIPTION_COLUMN;
@@ -18,7 +17,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,41 +28,10 @@ import android.widget.Spinner;
 
 import androidx.appcompat.widget.Toolbar;
 
-import android.widget.Toast;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import kotlinx.coroutines.flow.Flow;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.time.DayOfWeek;
-
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-public class MainActivity extends AppCompatActivity {
+public class CreateCourse extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
     private Spinner spinnerDayOfWeek;
@@ -97,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent classInstancePage = new Intent(MainActivity.this, ClassInstanceList.class);
+                Intent classInstancePage = new Intent(CreateCourse.this, CourseList.class);
                 startActivity(classInstancePage);
             }
         }).setNeutralButton("Back", new DialogInterface.OnClickListener() {
@@ -151,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_create_course);
         dbHelper = new DatabaseHelper(this);
         //String result = getResources().getString(R.string.json);
 
@@ -209,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.itemExit) {
-            Intent landingPage = new Intent(MainActivity.this, ClassInstanceList.class);
+            Intent landingPage = new Intent(CreateCourse.this, CourseList.class);
             startActivity(landingPage);
             return true;
         }

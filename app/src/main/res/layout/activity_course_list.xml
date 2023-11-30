@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClassInstanceList"
+    tools:context=".CourseList"
     android:background="@drawable/demo1">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -12,13 +12,6 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <WebView
-            android:id="@+id/webkit"
-            android:layout_width="410dp"
-            android:layout_height="75dp"
-            android:background="#FEE4E5"
-            android:backgroundTint="#FEE4E5" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -28,6 +21,13 @@
             app:title="Course List"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
             app:titleTextColor="#cc1075" />
+
+        <WebView
+            android:id="@+id/webkit"
+            android:layout_width="410dp"
+            android:layout_height="75dp"
+            android:background="#FEE4E5"
+            android:backgroundTint="#FEE4E5" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -52,22 +52,24 @@
         app:backgroundTint="#cc1075"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appbar"
-        app:layout_constraintVertical_bias="0.9"
+        app:layout_constraintVertical_bias="0.98"
         app:rippleColor="#cc1075" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/uploadFloatingBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="625dp"
         android:clickable="true"
         android:src="@android:drawable/ic_menu_upload"
         app:backgroundTint="#4CAF50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.27"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.98" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

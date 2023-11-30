@@ -18,14 +18,14 @@ import android.widget.EditText;
 
 import java.time.LocalDate;
 
-public class ClassInstanceDateActivity extends AppCompatActivity {
+public class CreateClassInstance extends AppCompatActivity {
     LocalDate selectedDate;
     int courseId;
     private DatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_class_instance_date);
+        setContentView(R.layout.activity_create_class_instance);
 
         Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(appToolbar);
@@ -54,7 +54,7 @@ public class ClassInstanceDateActivity extends AppCompatActivity {
                 .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent classInstancePage = new Intent(ClassInstanceDateActivity.this, ClassInstanceList.class);
+                        Intent classInstancePage = new Intent(CreateClassInstance.this, CourseList.class);
                         startActivity(classInstancePage);
                     }
                 }).setNeutralButton("Back", new DialogInterface.OnClickListener() {
@@ -107,7 +107,7 @@ public class ClassInstanceDateActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.itemExit) {
-            Intent classListPage = new Intent(ClassInstanceDateActivity.this, ClassInstanceList.class);
+            Intent classListPage = new Intent(CreateClassInstance.this, CourseList.class);
             startActivity(classListPage);
             return true;
         }

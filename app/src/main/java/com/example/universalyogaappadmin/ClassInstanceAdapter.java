@@ -3,7 +3,6 @@ package com.example.universalyogaappadmin;
 import static com.example.universalyogaappadmin.DatabaseHelper.COMMENTS_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.COURSE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.DATE_COLUMN;
-import static com.example.universalyogaappadmin.DatabaseHelper.INSTANCE_ID_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.TEACHER_COLUMN;
 import static com.example.universalyogaappadmin.DatabaseHelper.INSTANCE_USER_ID;
 
@@ -18,13 +17,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class InstanceAdapter extends BaseAdapter {
+public class ClassInstanceAdapter extends BaseAdapter {
     Context context;
     JSONArray instanceList;
     LayoutInflater inflater;
     DatabaseHelper dbHelper;
 
-    public InstanceAdapter(Context appContext, JSONArray instanceList) {
+    public ClassInstanceAdapter(Context appContext, JSONArray instanceList) {
         this.context = appContext;
         this.instanceList = instanceList;
         inflater = (LayoutInflater.from(appContext));
@@ -48,7 +47,7 @@ public class InstanceAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflater.inflate(R.layout.activity_instance_list_view, null);
+        view = inflater.inflate(R.layout.activity_class_instance_list_view, null);
 
         TextView instanceContentTextView = (TextView) view.findViewById(R.id.instanceText);
         JSONObject jsonObject;
