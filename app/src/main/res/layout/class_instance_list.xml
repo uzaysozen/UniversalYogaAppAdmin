@@ -7,16 +7,18 @@
     tools:context=".ClassInstanceList"
     android:background="@drawable/demo1">
 
-    <WebView
-        android:id="@+id/webkit"
-        android:layout_width="match_parent"
-        android:layout_height="0dp" />
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <WebView
+            android:id="@+id/webkit"
+            android:layout_width="410dp"
+            android:layout_height="75dp"
+            android:background="#FEE4E5"
+            android:backgroundTint="#FEE4E5" />
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -26,6 +28,7 @@
             app:title="Course List"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
             app:titleTextColor="#cc1075" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <ListView

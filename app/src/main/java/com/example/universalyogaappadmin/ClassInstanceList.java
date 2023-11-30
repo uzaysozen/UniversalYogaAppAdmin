@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -49,6 +50,7 @@ public class ClassInstanceList extends AppCompatActivity {
         //setSupportActionBar(appToolbar);
         JSONArray result_uzay = dbHelper.getCourseDetails();
         browser = (WebView) findViewById(R.id.webkit);
+        browser.setBackgroundColor(Color.TRANSPARENT);
 
         lv = (ListView) findViewById(R.id.instanceListView);
 
