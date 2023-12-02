@@ -17,11 +17,28 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 
 import java.time.LocalDate;
+import java.time.DayOfWeek;
+import java.util.HashMap;
+
+import kotlinx.coroutines.internal.LocalAtomicsKt;
 
 public class CreateClassInstance extends AppCompatActivity {
     LocalDate selectedDate;
     int courseId;
+    String dayOfWeek;
     private DatabaseHelper dbHelper;
+
+    private final HashMap<String, DayOfWeek> daysOfWeek = new HashMap<String, DayOfWeek> () {
+        {
+            put("Monday", DayOfWeek.MONDAY);
+            put("Tuesday", DayOfWeek.TUESDAY);
+            put("Wednesday", DayOfWeek.WEDNESDAY);
+            put("Thursday", DayOfWeek.THURSDAY);
+            put("Friday", DayOfWeek.FRIDAY);
+            put("Saturday", DayOfWeek.SATURDAY);
+            put("Sunday", DayOfWeek.SUNDAY);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +52,7 @@ public class CreateClassInstance extends AppCompatActivity {
         CalendarView calendarView = findViewById(R.id.calendarView);
         Intent intent = getIntent();
         courseId = intent.getIntExtra("courseId", -1);
+        dayOfWeek = intent.getStringExtra("dayOfWeek");
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int day) {
@@ -49,8 +67,8 @@ public class CreateClassInstance extends AppCompatActivity {
         });
     }
 
-    private void createAlert(String title, String message) {
-        new AlertDialog.Builder(this).setTitle(title).setMessage(message)
+    private void createAlert(String message) {
+        new AlertDialog.Builder(this).setTitle("Details Entered").setMessage(message)
                 .setNegativeButton("Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -74,7 +92,7 @@ public class CreateClassInstance extends AppCompatActivity {
     }
 
     private void displayNextAlert(String date, String tutor, String comments){
-        createAlert("Details Entered", "Details Entered:\n" + date + "\n" + tutor + "\n " + comments);
+        createAlert("Details Entered:\n" + date + "\n" + tutor + "\n " + comments);
     }
 
     private void getInputs(){
@@ -88,12 +106,24 @@ public class CreateClassInstance extends AppCompatActivity {
             createErrorAlert("Error Occurred", "Please fill all the required fields.");
         } else {
             if (selectedDate != null) {
-                displayNextAlert(selectedDate.toString(), strTutor, strComments);
-                dbHelper.insertClassDetails(null, "evuk31",selectedDate.toString(), strTutor, strComments, courseId, false);
+                // Check if the selected date is a Monday
+                checkDateAndInsertClass(selectedDate, strTutor, strComments);
             } else {
-                displayNextAlert(LocalDate.now().toString(), strTutor, strComments);
+                checkDateAndInsertClass(LocalDate.now(), strTutor, strComments);
             }
+        }
+    }
 
+    private void checkDateAndInsertClass(LocalDate date, String strTutor, String strComments) {
+        if (date.getDayOfWeek() != daysOfWeek.get(dayOfWeek)) {
+            // Display alert if day of week is wrong
+            createErrorAlert("Date Selection", "The selected day must be "+ dayOfWeek);
+        } else if (date.isBefore(LocalDate.now()) || date.isEqual(LocalDate.now())) {
+            createErrorAlert("Date Selection", "The selected date must be a future date");
+        }
+        else {
+            displayNextAlert(LocalDate.now().toString(), strTutor, strComments);
+            dbHelper.insertClassDetails(null, "evuk31", LocalDate.now().toString(), strTutor, strComments, courseId, false);
         }
     }
 
