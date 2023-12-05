@@ -106,10 +106,6 @@ public class CreateCourse extends AppCompatActivity {
             else
                 dbHelper.insertCourseDetails(courseId, strWeek, strTime, strCapacity, strPrice, strRadio, strDesc, true);
 
-            //Toast.makeText(this, "Class has been created with id:" + courseId, Toast.LENGTH_SHORT).show();
-
-            //Intent intent = new Intent(this, DetailsActivity.class);
-            //startActivity(intent);
             displayNextAlert(strWeek, strTime,strCapacity, strPrice, strRadio, strDesc);
         }
     }

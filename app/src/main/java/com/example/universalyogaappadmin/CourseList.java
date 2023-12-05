@@ -43,8 +43,6 @@ public class CourseList extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         String result = dbHelper.getWebFormat().toString();
         setContentView(R.layout.activity_course_list);
-        //Toolbar appToolbar = (Toolbar) findViewById(R.id.toolbar_top);
-        //setSupportActionBar(appToolbar);
         JSONArray result_uzay = dbHelper.getCourseDetails();
         browser = (WebView) findViewById(R.id.webkit);
         browser.setBackgroundColor(Color.TRANSPARENT);
@@ -75,13 +73,9 @@ public class CourseList extends AppCompatActivity {
                 trustAllHosts();
                 HttpURLConnection con = (HttpURLConnection) pageURL.openConnection();
 
-                //String jsonString = getString(R.string.json);
-
                 JsonThread myTask = new JsonThread(this, con, result);
-                System.out.println("anan" + result);
                 Thread t1 = new Thread(myTask, "JSON Thread");
                 t1.start();
-                //Toast.makeText(this, browser.get, Toast.LENGTH_SHORT).show();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -164,13 +158,11 @@ public class CourseList extends AppCompatActivity {
                 int responseCode = con.getResponseCode();
                 if (responseCode == HttpURLConnection.HTTP_OK) {
                     response = readStream(con.getInputStream());
-                    System.out.println("Selamin Aleykum" + response);
                 } else {
                     response = "Error contacting server: " + responseCode;
                 }
             } catch (Exception e) {
                 response = e.toString();//"Error executing code";
-                System.out.println("Selamin Aleykum" + response);
             }
             return response;
         }
