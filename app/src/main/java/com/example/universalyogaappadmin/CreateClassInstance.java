@@ -119,7 +119,7 @@ public class CreateClassInstance extends AppCompatActivity {
         }
         else {
             displayNextAlert(LocalDate.now().toString(), strTutor, strComments);
-            dbHelper.insertClassDetails(null, "evuk31", LocalDate.now().toString(), strTutor, strComments, courseId, false);
+            dbHelper.insertClassDetails(null, "ekuv31", LocalDate.now().toString(), strTutor, strComments, courseId, false);
         }
     }
 

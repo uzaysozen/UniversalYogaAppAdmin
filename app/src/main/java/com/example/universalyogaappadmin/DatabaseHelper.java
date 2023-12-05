@@ -220,7 +220,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         JSONArray courses = getCourseDetails();
 
         try {
-            res.put("userId", "evuk31");
+            res.put("userId", "ekuv31");
             for (int i = 0; i< courses.length(); i++) {
                 JSONArray classList = new JSONArray();
                 JSONObject course = new JSONObject();
